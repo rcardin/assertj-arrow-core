@@ -1,6 +1,8 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Either
+import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBeLeft
+import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeRight.Companion.shouldBeRight
 import org.assertj.core.api.AbstractObjectAssert
 
 /**
@@ -19,10 +21,24 @@ abstract class AbstractEitherAssert<SELF : AbstractEitherAssert<SELF, LEFT, RIGH
      *
      * @return this assertion object.
      */
-    fun isRight() {
+    fun isRight(): SELF {
         isNotNull
         if (!actual.isRight()) {
-            failWithMessage("%nExpected Either to be right but was <%s>", actual)
+            throwAssertionError(shouldBeRight(actual))
         }
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] is left.
+     *
+     * @return this assertion object.
+     */
+    fun isLeft(): SELF {
+        isNotNull
+        if (!actual.isLeft()) {
+            throwAssertionError(shouldBeLeft(actual))
+        }
+        return myself
     }
 }
