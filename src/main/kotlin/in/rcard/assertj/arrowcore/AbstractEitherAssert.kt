@@ -49,6 +49,12 @@ abstract class AbstractEitherAssert<SELF : AbstractEitherAssert<SELF, LEFT, RIGH
         }
     }
 
+    /**
+     * Verifies that the actual [Either] is [Either.Right] and contains the given value.
+     *
+     * @param expectedValue the expected value inside the [Either].
+     * @return this assertion object.
+     */
     fun containsOnRight(expectedValue: RIGHT): SELF {
         assertIsRight()
         actual.onRight { right ->
