@@ -11,8 +11,6 @@ import org.assertj.core.error.BasicErrorMessageFactory
 class EitherShouldBeRight(actual: Either<*, *>) :
     BasicErrorMessageFactory("%nExpecting an Either to be right but was <$actual>.") {
     companion object {
-        fun shouldBeRight(actual: Either<*, *>): EitherShouldBeRight {
-            return EitherShouldBeRight(actual)
-        }
+        fun shouldBeRight(actual: Either<*, *>): EitherShouldBeRight = EitherShouldBeRight(actual)
     }
 }

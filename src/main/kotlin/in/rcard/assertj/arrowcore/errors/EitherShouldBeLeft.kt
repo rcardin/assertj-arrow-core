@@ -11,8 +11,6 @@ import org.assertj.core.error.BasicErrorMessageFactory
 class EitherShouldBeLeft(actual: Either<*, *>) :
     BasicErrorMessageFactory("%nExpecting an Either to be left but was <$actual>.") {
     companion object {
-        fun shouldBeLeft(actual: Either<*, *>): EitherShouldBeLeft {
-            return EitherShouldBeLeft(actual)
-        }
+        fun shouldBeLeft(actual: Either<*, *>): EitherShouldBeLeft = EitherShouldBeLeft(actual)
     }
 }
