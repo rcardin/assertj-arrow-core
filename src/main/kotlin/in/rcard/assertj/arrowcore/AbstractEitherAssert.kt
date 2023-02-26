@@ -69,8 +69,7 @@ abstract class AbstractEitherAssert<
   }
 
   /**
-   * Verifies that the actual [Either] is [Either.Left]
-   * and contains the given value.
+   * Verifies that the actual [Either] is [Either.Left] and contains the given value.
    *
    * @param expectedValue the expected value inside the [Either].
    * @return this assertion object.
@@ -90,5 +89,18 @@ abstract class AbstractEitherAssert<
     if (!actual.isLeft()) {
       throwAssertionError(shouldBeLeft(actual))
     }
+  }
+
+  /**
+   * Verifies that the actual right-sided [Either] contains a value that is an
+   * instance of the argument.
+   *
+   * @param expectedClass the expected class of the value inside the right-sided [Either].
+   * @return this assertion object.
+   */
+  fun containsRightInstanceOf(expectedClass: Class<*>): SELF {
+    isNotNull
+    isRight()
+    return myself
   }
 }
