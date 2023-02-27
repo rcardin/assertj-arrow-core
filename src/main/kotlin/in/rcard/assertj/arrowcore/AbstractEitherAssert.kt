@@ -5,6 +5,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBe
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeRight.Companion.shouldBeRight
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnLeft
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnRight
+import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnRightInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
@@ -61,6 +62,23 @@ abstract class AbstractEitherAssert<
     return myself
   }
 
+  /**
+   * Verifies that the actual right-sided [Either] contains a value that is an
+   * instance of the argument.
+   *
+   * @param expectedClass the expected class of the value inside the right-sided [Either].
+   * @return this assertion object.
+   */
+  fun containsRightInstanceOf(expectedClass: Class<*>): SELF {
+    assertIsRight()
+    actual.onRight { right ->
+      if (!expectedClass.isInstance(right)) {
+        throwAssertionError(shouldContainOnRightInstanceOf(actual, expectedClass))
+      }
+    }
+    return myself
+  }
+
   private fun assertIsRight() {
     isNotNull
     if (!actual.isRight()) {
@@ -89,18 +107,5 @@ abstract class AbstractEitherAssert<
     if (!actual.isLeft()) {
       throwAssertionError(shouldBeLeft(actual))
     }
-  }
-
-  /**
-   * Verifies that the actual right-sided [Either] contains a value that is an
-   * instance of the argument.
-   *
-   * @param expectedClass the expected class of the value inside the right-sided [Either].
-   * @return this assertion object.
-   */
-  fun containsRightInstanceOf(expectedClass: Class<*>): SELF {
-    isNotNull
-    isRight()
-    return myself
   }
 }
