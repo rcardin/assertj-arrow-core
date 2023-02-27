@@ -8,7 +8,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  *
  * @author Riccardo Cardin
  */
-class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: Any) :
+internal class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: Any) :
     BasicErrorMessageFactory(message, actual, expected) {
 
     companion object {
@@ -27,7 +27,7 @@ class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: A
          * @param RIGHT         the type of the value contained in the [Either] on the right side.
          * @return an error message factory
          */
-        fun <LEFT : Any, RIGHT : Any> shouldContainOnRight(
+        internal fun <LEFT : Any, RIGHT : Any> shouldContainOnRight(
             actual: Either<LEFT, RIGHT>,
             expectedValue: RIGHT
         ): EitherShouldContain = EitherShouldContain(
@@ -45,7 +45,7 @@ class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: A
          * @param RIGHT       the type of the value contained in the [Either] on the right side.
          * @return an error message factory
          */
-        fun <LEFT : Any, RIGHT : Any> shouldContainOnLeft(
+        internal fun <LEFT : Any, RIGHT : Any> shouldContainOnLeft(
             actual: Either<LEFT, RIGHT>,
             expectedValue: RIGHT
         ): EitherShouldContain = EitherShouldContain(
