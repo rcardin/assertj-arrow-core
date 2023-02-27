@@ -59,8 +59,8 @@ class EitherAssert_containsOnRightInstanceOf_Test {
         val actual: Either<Nothing, String> = "something".right()
         assertThat(actual).containsRightInstanceOf(String::class.java)
     }
+
+    private open class Parent
+
+    private class Child : Parent()
 }
-
-private open class Parent
-
-private class Child : Parent()

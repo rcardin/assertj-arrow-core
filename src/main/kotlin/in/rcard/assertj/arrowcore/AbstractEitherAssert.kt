@@ -5,6 +5,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBe
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeRight.Companion.shouldBeRight
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnLeft
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnRight
+import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnLeftInstanceOf
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnRightInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
@@ -19,7 +20,8 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @author Riccardo Cardin
  */
 abstract class AbstractEitherAssert<
-    SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>, LEFT : Any, RIGHT : Any,>(
+    SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>, LEFT : Any, RIGHT : Any,
+    >(
     either: Either<LEFT, RIGHT>?,
 ) : AbstractObjectAssert<SELF, Either<LEFT, RIGHT>>(either, AbstractEitherAssert::class.java) {
 
@@ -97,6 +99,16 @@ abstract class AbstractEitherAssert<
         actual.onLeft { left ->
             if (!comparisonStrategy.areEqual(left, expectedValue)) {
                 throwAssertionError(shouldContainOnLeft(actual, expectedValue))
+            }
+        }
+        return myself
+    }
+
+    fun containsLeftInstanceOf(expectedClass: Class<*>): SELF {
+        assertIsLeft()
+        actual.onLeft { left ->
+            if (!expectedClass.isInstance(left)) {
+                throwAssertionError(shouldContainOnLeftInstanceOf(actual, expectedClass))
             }
         }
         return myself
