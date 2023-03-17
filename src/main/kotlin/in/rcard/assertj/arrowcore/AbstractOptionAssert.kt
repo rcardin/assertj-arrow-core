@@ -1,6 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Option
+import `in`.rcard.assertj.arrowcore.errors.OptionShouldBePresent.Companion.shouldBePresent
 import org.assertj.core.api.AbstractObjectAssert
 
 /**
@@ -14,4 +15,16 @@ abstract class AbstractOptionAssert<
     SELF : AbstractOptionAssert<SELF, VALUE>, VALUE : Any,
     >(
     option: Option<VALUE>?,
-) : AbstractObjectAssert<SELF, Option<VALUE>>(option, AbstractOptionAssert::class.java)
+) : AbstractObjectAssert<SELF, Option<VALUE>>(option, AbstractOptionAssert::class.java) {
+
+    /**
+     * Verifies that there is a value present in the actual [Option].
+     *
+     * @return this assertion object.
+     */
+    fun isDefined(): SELF {
+        isNotNull
+        if (actual.isEmpty()) throwAssertionError(shouldBePresent())
+        return myself
+    }
+}
