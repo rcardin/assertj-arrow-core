@@ -12,8 +12,7 @@ import arrow.core.Either
 class EitherAssert<LEFT : Any, RIGHT : Any>(either: Either<LEFT, RIGHT>?) :
     AbstractEitherAssert<EitherAssert<LEFT, RIGHT>, LEFT, RIGHT>(either) {
     companion object {
-        fun <LEFT : Any, RIGHT : Any> assertThat(actual: Either<LEFT, RIGHT>?): EitherAssert<LEFT, RIGHT> {
-            return EitherAssert(actual)
-        }
+        fun <LEFT : Any, RIGHT : Any> assertThat(actual: Either<LEFT, RIGHT>?): EitherAssert<LEFT, RIGHT> =
+            EitherAssert(actual)
     }
 }
