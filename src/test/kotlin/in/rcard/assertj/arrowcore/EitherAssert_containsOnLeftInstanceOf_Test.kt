@@ -10,9 +10,9 @@ import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages
 import org.junit.jupiter.api.Test
 
-class EitherAssert_containsOnLeftInstanceOf_Test {
+internal class EitherAssert_containsOnLeftInstanceOf_Test {
     @Test
-    fun `should fail if either is null`() {
+    internal fun `should fail if either is null`() {
         val actual: Either<Any, Any>? = null
         Assertions.assertThatThrownBy {
             assertThat(actual).containsLeftInstanceOf(
@@ -24,7 +24,7 @@ class EitherAssert_containsOnLeftInstanceOf_Test {
     }
 
     @Test
-    fun `should fail if either is right`() {
+    internal fun `should fail if either is right`() {
         val actual: Either<Any, String> = "some".right()
         Assertions.assertThatThrownBy {
             assertThat(actual).containsLeftInstanceOf(
@@ -36,20 +36,20 @@ class EitherAssert_containsOnLeftInstanceOf_Test {
     }
 
     @Test
-    fun `should pass if either contains required type on left`() {
+    internal fun `should pass if either contains required type on left`() {
         val actual: Either<String, Nothing> = "something".left()
         assertThat(actual)
             .containsLeftInstanceOf(String::class.java)
     }
 
     @Test
-    fun `should pass if either contains required type subclass on left`() {
+    internal fun `should pass if either contains required type subclass on left`() {
         val actual = Child().left()
         assertThat(actual).containsLeftInstanceOf(Parent::class.java)
     }
 
     @Test
-    fun `should fail if either contains other type on left than required`() {
+    internal fun `should fail if either contains other type on left than required`() {
         val actual: Either<String, Nothing> = "something".left()
         Assertions.assertThatThrownBy {
             assertThat(actual).containsLeftInstanceOf(Int::class.java)

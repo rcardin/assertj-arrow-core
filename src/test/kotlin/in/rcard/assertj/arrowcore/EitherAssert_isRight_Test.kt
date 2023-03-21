@@ -8,10 +8,10 @@ import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
 
-class EitherAssert_isRight_Test {
+internal class EitherAssert_isRight_Test {
 
     @Test
-    fun `should fail if either is null`() {
+    internal fun `should fail if either is null`() {
         // GIVEN
         val rightValue: Either<Nothing, Nothing>? = null
         // WHEN/THEN
@@ -21,7 +21,7 @@ class EitherAssert_isRight_Test {
     }
 
     @Test
-    fun `should pass if either is right`() {
+    internal fun `should pass if either is right`() {
         // GIVEN
         val rightValue = 42.right()
         // WHEN/THEN
@@ -29,7 +29,7 @@ class EitherAssert_isRight_Test {
     }
 
     @Test
-    fun `should fail if either is left`() {
+    internal fun `should fail if either is left`() {
         // GIVEN
         val leftValue = "42".left()
         // WHEN/THEN

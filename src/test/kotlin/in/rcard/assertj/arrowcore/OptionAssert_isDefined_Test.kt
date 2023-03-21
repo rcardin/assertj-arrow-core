@@ -9,21 +9,21 @@ import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
 
-class OptionAssert_isDefined_Test {
+internal class OptionAssert_isDefined_Test {
     @Test
-    fun `should pass when Option is present`() {
+    internal fun `should pass when Option is present`() {
         assertThat("present".some()).isDefined()
     }
 
     @Test
-    fun `should fail when Option is empty`() {
+    internal fun `should fail when Option is empty`() {
         Assertions.assertThatThrownBy { assertThat(None).isDefined() }
             .isInstanceOf(AssertionError::class.java)
             .hasMessage(shouldBePresent().create())
     }
 
     @Test
-    fun `should fail when Option is null`() {
+    internal fun `should fail when Option is null`() {
         val nullOption: Option<Nothing>? = null
         Assertions.assertThatThrownBy { assertThat(nullOption).isDefined() }
             .isInstanceOf(AssertionError::class.java)

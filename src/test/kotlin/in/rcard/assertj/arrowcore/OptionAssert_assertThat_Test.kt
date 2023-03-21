@@ -5,10 +5,10 @@ import arrow.core.some
 import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Test
 
-class OptionAssert_assertThat_Test {
+internal class OptionAssert_assertThat_Test {
 
     @Test
-    fun `should create an assertion instance when given object is not null`() {
+    internal fun `should create an assertion instance when given object is not null`() {
         // GIVEN
         val someValue = 42.some()
         // WHEN
@@ -18,7 +18,7 @@ class OptionAssert_assertThat_Test {
     }
 
     @Test
-    fun `should create an assertion instance when given object is null`() {
+    internal fun `should create an assertion instance when given object is null`() {
         // GIVEN
         val someNullValue: Option<Nothing>? = null
         // WHEN

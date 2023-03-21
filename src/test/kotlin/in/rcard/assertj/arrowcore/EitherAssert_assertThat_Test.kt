@@ -5,9 +5,9 @@ import arrow.core.right
 import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Test
 
-class EitherAssert_assertThat_Test {
+internal class EitherAssert_assertThat_Test {
     @Test
-    fun `should create an assertion instance when given object is not null`() {
+    internal fun `should create an assertion instance when given object is not null`() {
         // GIVEN
         val rightValue = 42.right()
         // WHEN
@@ -17,7 +17,7 @@ class EitherAssert_assertThat_Test {
     }
 
     @Test
-    fun `should create an assertion instance when given object is null`() {
+    internal fun `should create an assertion instance when given object is null`() {
         // GIVEN
         val rightValue: Either<Nothing, Nothing>? = null
         // WHEN
