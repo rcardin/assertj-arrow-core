@@ -1,6 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Option
+import `in`.rcard.assertj.arrowcore.errors.OptionShouldBeEmpty.Companion.shouldBeEmpty
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldBePresent.Companion.shouldBePresent
 import org.assertj.core.api.AbstractObjectAssert
 
@@ -25,6 +26,17 @@ abstract class AbstractOptionAssert<
     fun isDefined(): SELF {
         isNotNull
         if (actual.isEmpty()) throwAssertionError(shouldBePresent())
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Option] is empty.
+     *
+     * @return this assertion object.
+     */
+    fun isEmpty(): SELF {
+        isNotNull
+        if (actual.isDefined()) throwAssertionError(shouldBeEmpty(actual))
         return myself
     }
 }

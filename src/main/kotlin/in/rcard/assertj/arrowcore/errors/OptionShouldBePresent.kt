@@ -17,8 +17,6 @@ class OptionShouldBePresent :
          *
          * @return a error message factory.
          */
-        fun shouldBePresent(): OptionShouldBePresent {
-            return OptionShouldBePresent()
-        }
+        fun shouldBePresent(): OptionShouldBePresent = OptionShouldBePresent()
     }
 }

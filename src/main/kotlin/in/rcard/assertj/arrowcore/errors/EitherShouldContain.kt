@@ -29,11 +29,11 @@ internal class EitherShouldContain(message: String, actual: Either<Any, Any>, ex
          */
         internal fun <LEFT : Any, RIGHT : Any> shouldContainOnRight(
             actual: Either<LEFT, RIGHT>,
-            expectedValue: RIGHT
+            expectedValue: RIGHT,
         ): EitherShouldContain = EitherShouldContain(
             EXPECTING_TO_CONTAIN_ON_RIGHT,
             actual,
-            expectedValue
+            expectedValue,
         )
 
         /**
@@ -47,11 +47,11 @@ internal class EitherShouldContain(message: String, actual: Either<Any, Any>, ex
          */
         internal fun <LEFT : Any, RIGHT : Any> shouldContainOnLeft(
             actual: Either<LEFT, RIGHT>,
-            expectedValue: RIGHT
+            expectedValue: RIGHT,
         ): EitherShouldContain = EitherShouldContain(
             EXPECTING_TO_CONTAIN_ON_LEFT,
             actual,
-            expectedValue
+            expectedValue,
         )
     }
 }
