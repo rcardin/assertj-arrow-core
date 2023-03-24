@@ -4,6 +4,7 @@ import arrow.core.Option
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldBeEmpty.Companion.shouldBeEmpty
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldBePresent.Companion.shouldBePresent
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldContain.Companion.shouldContain
+import `in`.rcard.assertj.arrowcore.errors.OptionShouldContainInstanceOf.Companion.shouldContainInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
@@ -29,8 +30,7 @@ abstract class AbstractOptionAssert<
      * @return this assertion object.
      */
     fun isDefined(): SELF {
-        isNotNull
-        if (actual.isEmpty()) throwAssertionError(shouldBePresent())
+        assertValueIsPresent()
         return myself
     }
 
@@ -62,5 +62,31 @@ abstract class AbstractOptionAssert<
             },
         )
         return myself
+    }
+
+    /**
+     * Verifies that the actual [Option] contains a value that is an instance of the argument.
+     *
+     * @param expectedClass the expected class of the value inside the [Option].
+     * @return this assertion object.
+     */
+    fun containsInstanceOf(expectedClass: Class<*>): SELF {
+        assertValueIsPresent()
+        actual.tap { value ->
+            if (!expectedClass.isInstance(value)) {
+                throwAssertionError(
+                    shouldContainInstanceOf(
+                        actual,
+                        expectedClass,
+                    ),
+                )
+            }
+        }
+        return myself
+    }
+
+    private fun assertValueIsPresent() {
+        isNotNull
+        if (actual.isEmpty()) throwAssertionError(shouldBePresent())
     }
 }
