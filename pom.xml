@@ -26,8 +26,8 @@
     </licenses>
     <properties>
         <assertj-core.version>3.24.2</assertj-core.version>
-        <kotlin-stdlib.version>1.7.20</kotlin-stdlib.version>
-        <arrow-core.version>1.1.5</arrow-core.version>
+        <kotlin-stdlib.version>1.9.10</kotlin-stdlib.version>
+        <arrow-core.version>1.2.1</arrow-core.version>
         <junit-bom.version>5.9.2</junit-bom.version>
         <junit.version>4.13.2</junit.version>
     </properties>
