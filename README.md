@@ -3,4 +3,23 @@
 <a href="https://pinterest.github.io/ktlint/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 
 # assertj-arrow-core
-Assertions for Type in Arrow Core
+
+This project provides a set of [AssertJ](https://assertj.github.io/doc/) assertions for the [Arrow](https://arrow-kt.io/) library. In detail, the project provides assertions for the following Arrow types:
+
+- [x] `Either`
+- [x] `Option`
+
+Maybe you're asking yourself: "Why do we need AssertJ assertions for Arrow types?". The answer is simple: We often use Kotlin and Arrow Kt inside a Java project using Spring Boot. In this case, we already have AssertJ in the classpath as an assertion library. So, why not use it to assert Arrow types?
+
+## Usage
+
+The library is available on Maven Central. To use it, add the following dependency to your `pom.xml` file:
+
+```xml
+<dependency>
+  <groupId>in.rcard</groupId>
+  <artifactId>assertj-arrow-core</artifactId>
+  <version>0.0.1</version>
+  <scope>test</scope>
+</dependency>
+```
