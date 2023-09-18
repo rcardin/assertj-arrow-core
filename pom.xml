@@ -31,6 +31,7 @@
         <arrow-core.version>1.2.1</arrow-core.version>
         <junit-bom.version>5.9.2</junit-bom.version>
         <junit.version>4.13.2</junit.version>
+        <dokka-maven-plugin.version>1.9.0</dokka-maven-plugin.version>
     </properties>
 
     <url>https://github.com/rcardin/assertj-arrow-core</url>
@@ -157,7 +158,7 @@
                     <plugin>
                         <groupId>org.jetbrains.dokka</groupId>
                         <artifactId>dokka-maven-plugin</artifactId>
-                        <version>${kotlin-stdlib.version}</version>
+                        <version>${dokka-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
