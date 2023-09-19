@@ -206,7 +206,7 @@
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>3.0.1</version>
                         <configuration>
-                            <passphrase>${JRELEASER_GPG_PASSPHRASE}</passphrase>
+                            <skip>true</skip>
                         </configuration>
                     </plugin>
                     <plugin>
