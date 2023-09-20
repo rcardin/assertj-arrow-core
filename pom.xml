@@ -12,6 +12,12 @@
     <description>Rich and fluent assertions for testing Kotlin Arrow Core types</description>
     <inceptionYear>2023</inceptionYear>
 
+    <scm>
+        <connection>scm:git:git://github.com/rcardin/assertj-arrow-core.git</connection>
+        <developerConnection>scm:git:ssh://github.com:rcardin/assertj-arrow-core.git</developerConnection>
+        <url>http://github.com/rcardin/assertj-arrow-core/tree/master</url>
+    </scm>
+
     <licenses>
         <license>
             <name>MIT License</name>
