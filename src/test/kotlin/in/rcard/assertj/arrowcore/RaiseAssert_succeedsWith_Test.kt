@@ -23,10 +23,36 @@ internal class RaiseAssert_succeedsWith_Test {
                     " but was: 42",
             )
     }
+
+    @Test
+    fun `should fail if lambda raises an error instead of succeeding`() {
+        Assertions.assertThatThrownBy {
+            assertThat { Dummy.aFunctionThatRaisesAnError() }.succeedsWith(42)
+        }.isInstanceOf(AssertionError::class.java)
+            .hasMessage(
+                "Expected lambda to succeed but it failed with LOGICAL ERROR",
+            )
+    }
+
+    @Test
+    fun `should fail if lambda throws an exception`() {
+        Assertions.assertThatThrownBy {
+            assertThat { Dummy.aFunctionThatThrowsAnException() }.succeedsWith(42)
+        }.isInstanceOf(AssertionError::class.java)
+            .hasMessage(
+                "Expected lambda to succeed but it throws the exception java.lang.RuntimeException: AN EXCEPTION",
+            )
+    }
 }
 
 private object Dummy {
 
     context (Raise<String>)
     fun aFunctionWithContext(input: Int): Int = input
+
+    context (Raise<String>)
+    fun aFunctionThatRaisesAnError(): Int = raise("LOGICAL ERROR")
+
+    context (Raise<String>)
+    fun aFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
 }
