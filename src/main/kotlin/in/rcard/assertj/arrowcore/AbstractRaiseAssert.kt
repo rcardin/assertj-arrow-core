@@ -10,7 +10,7 @@ abstract class AbstractRaiseAssert<
     >(lambda: context(Raise<ERROR>) () -> VALUE) :
     AbstractAssert<SELF, context(Raise<ERROR>) () -> VALUE>(lambda, AbstractRaiseAssert::class.java) {
 
-    fun succeedsWith(value: VALUE): SELF {
+    fun succeedsWith(value: VALUE) {
         fold(
             block = actual,
             recover = { error: ERROR -> failWithMessage("Expected lambda to succeed but it failed with '$error'") },
@@ -22,6 +22,19 @@ abstract class AbstractRaiseAssert<
                 }
             },
         )
-        return myself
+    }
+
+    fun raises(expected: ERROR) {
+        fold(
+            block = actual,
+            recover = { Assertions.assertThat(it).isEqualTo(expected) },
+            transform = { failWithMessage("Expected lambda to raise a logical error but it succeeded with value '$it'") },
+            catch = { ex: Throwable ->
+                when (ex) {
+                    is AssertionError -> throw ex
+                    else -> failWithMessage("Expected lambda to raise a logical error but it throws the exception '$ex'")
+                }
+            },
+        )
     }
 }
