@@ -30,7 +30,7 @@ internal class RaiseAssert_succeedsWith_Test {
             assertThat { Dummy.aFunctionThatRaisesAnError() }.succeedsWith(42)
         }.isInstanceOf(AssertionError::class.java)
             .hasMessage(
-                "Expected lambda to succeed but it failed with LOGICAL ERROR",
+                "Expected lambda to succeed but it failed with 'LOGICAL ERROR'",
             )
     }
 
@@ -40,7 +40,7 @@ internal class RaiseAssert_succeedsWith_Test {
             assertThat { Dummy.aFunctionThatThrowsAnException() }.succeedsWith(42)
         }.isInstanceOf(AssertionError::class.java)
             .hasMessage(
-                "Expected lambda to succeed but it throws the exception java.lang.RuntimeException: AN EXCEPTION",
+                "Expected lambda to succeed but it throws the exception 'java.lang.RuntimeException: AN EXCEPTION'",
             )
     }
 }
