@@ -1,6 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import `in`.rcard.assertj.arrowcore.RaiseAssert.Companion.assertThat
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceed.Companion.shouldSucceed
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ internal class RaiseAssert_succeedsWith_Test {
             assertThat { Dummy.aFunctionThatRaisesAnError() }.succeedsWith(42)
         }.isInstanceOf(AssertionError::class.java)
             .hasMessage(
-                "Expected lambda to succeed but it failed with 'LOGICAL ERROR'",
+                shouldSucceed(42, "LOGICAL ERROR").create(),
             )
     }
 

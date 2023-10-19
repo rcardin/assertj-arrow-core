@@ -2,18 +2,19 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceed.Companion.shouldSucceed
 import org.assertj.core.api.AbstractAssert
 import org.assertj.core.api.Assertions
 
 abstract class AbstractRaiseAssert<
-    SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>, ERROR, VALUE : Any,
+    SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>, ERROR : Any, VALUE : Any,
     >(lambda: context(Raise<ERROR>) () -> VALUE) :
     AbstractAssert<SELF, context(Raise<ERROR>) () -> VALUE>(lambda, AbstractRaiseAssert::class.java) {
 
     fun succeedsWith(value: VALUE) {
         fold(
             block = actual,
-            recover = { error: ERROR -> failWithMessage("Expected lambda to succeed but it failed with '$error'") },
+            recover = { error: ERROR -> throwAssertionError(shouldSucceed(value, error)) },
             transform = { Assertions.assertThat(it).isEqualTo(value) },
             catch = { ex: Throwable ->
                 when (ex) {
