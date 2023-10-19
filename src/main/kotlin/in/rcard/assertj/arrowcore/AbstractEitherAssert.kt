@@ -10,6 +10,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Compani
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
+import java.util.function.Consumer
 
 /**
  * Assertions for [Either].
@@ -81,6 +82,12 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
+    fun hasRightValueSatisfying(requirement: Consumer<RIGHT>): SELF {
+        assertIsRight()
+        actual.onRight { requirement.accept(it) }
+        return myself
+    }
+
     private fun assertIsRight() {
         isNotNull
         if (!actual.isRight()) {
@@ -111,6 +118,12 @@ abstract class AbstractEitherAssert<
                 throwAssertionError(shouldContainOnLeftInstanceOf(actual, expectedClass))
             }
         }
+        return myself
+    }
+
+    fun hasLeftValueSatisfying(requirement: Consumer<LEFT>): SELF {
+        assertIsLeft()
+        actual.onLeft { requirement.accept(it) }
         return myself
     }
 

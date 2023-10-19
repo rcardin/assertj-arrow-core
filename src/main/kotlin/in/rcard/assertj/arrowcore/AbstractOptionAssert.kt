@@ -8,6 +8,7 @@ import `in`.rcard.assertj.arrowcore.errors.OptionShouldContainInstanceOf.Compani
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
+import java.util.function.Consumer
 
 /**
  * Assertions for [Option].
@@ -82,6 +83,12 @@ abstract class AbstractOptionAssert<
                 )
             }
         }
+        return myself
+    }
+
+    fun hasValueSatisfying(requirement: Consumer<VALUE>): SELF {
+        assertValueIsPresent()
+        actual.onSome { requirement.accept(it) }
         return myself
     }
 
