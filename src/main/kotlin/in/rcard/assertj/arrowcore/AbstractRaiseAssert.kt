@@ -2,7 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceed.Companion.shouldSucceed
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
 import org.assertj.core.api.AbstractAssert
 import org.assertj.core.api.Assertions
 
@@ -14,7 +14,7 @@ abstract class AbstractRaiseAssert<
     fun succeedsWith(value: VALUE) {
         fold(
             block = actual,
-            recover = { error: ERROR -> throwAssertionError(shouldSucceed(value, error)) },
+            recover = { error: ERROR -> throwAssertionError(shouldSucceedButFailed(value, error)) },
             transform = { Assertions.assertThat(it).isEqualTo(value) },
             catch = { ex: Throwable ->
                 when (ex) {

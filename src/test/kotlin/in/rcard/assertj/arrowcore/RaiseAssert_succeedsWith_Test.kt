@@ -1,7 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import `in`.rcard.assertj.arrowcore.RaiseAssert.Companion.assertThat
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceed.Companion.shouldSucceed
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -30,7 +30,7 @@ internal class RaiseAssert_succeedsWith_Test {
             assertThat { Dummy.aFunctionThatRaisesAnError() }.succeedsWith(42)
         }.isInstanceOf(AssertionError::class.java)
             .hasMessage(
-                shouldSucceed(42, "LOGICAL ERROR").create(),
+                shouldSucceedButFailed(42, "LOGICAL ERROR").create(),
             )
     }
 
