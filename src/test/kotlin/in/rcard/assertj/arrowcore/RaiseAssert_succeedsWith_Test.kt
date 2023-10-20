@@ -2,6 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import `in`.rcard.assertj.arrowcore.RaiseAssert.Companion.assertThat
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -17,11 +18,7 @@ internal class RaiseAssert_succeedsWith_Test {
         Assertions.assertThatThrownBy {
             assertThat { Dummy.aFunctionWithContext(42) }.succeedsWith(41)
         }.isInstanceOf(AssertionError::class.java)
-            .hasMessage(
-                "\n" +
-                    "expected: 41\n" +
-                    " but was: 42",
-            )
+            .hasMessage(RaiseShouldSucceedWith.shouldSucceedWith(41, 42).create())
     }
 
     @Test
@@ -38,9 +35,7 @@ internal class RaiseAssert_succeedsWith_Test {
     internal fun `should fail if lambda throws an exception`() {
         Assertions.assertThatThrownBy {
             assertThat { Dummy.aFunctionThatThrowsAnException() }.succeedsWith(42)
-        }.isInstanceOf(AssertionError::class.java)
-            .hasMessage(
-                "Expected lambda to succeed but it throws the exception 'java.lang.RuntimeException: AN EXCEPTION'",
-            )
+        }.isInstanceOf(RuntimeException::class.java)
+            .hasMessage("AN EXCEPTION")
     }
 }
