@@ -86,9 +86,17 @@ abstract class AbstractOptionAssert<
         return myself
     }
 
-    fun hasValueSatisfying(requirement: Consumer<VALUE>): SELF {
+    /**
+     * Verifies that the actual [Option] contains a value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement to further assert on the object contained inside the [Option].
+     * @return this assertion object.
+     */
+    fun hasValueSatisfying(requirement: (VALUE) -> Unit): SELF {
         assertValueIsPresent()
-        actual.onSome { requirement.accept(it) }
+        actual.onSome { requirement(it) }
         return myself
     }
 

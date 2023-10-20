@@ -82,9 +82,14 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
-    fun hasRightValueSatisfying(requirement: Consumer<RIGHT>): SELF {
+    /**
+     * Verifies that the actual [Either] contains a right-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     */
+    fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
         assertIsRight()
-        actual.onRight { requirement.accept(it) }
+        actual.onRight { requirement(it) }
         return myself
     }
 
@@ -121,9 +126,14 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
-    fun hasLeftValueSatisfying(requirement: Consumer<LEFT>): SELF {
+    /**
+     * Verifies that the actual [Either] contains a left-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     */
+    fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
         assertIsLeft()
-        actual.onLeft { requirement.accept(it) }
+        actual.onLeft { requirement(it) }
         return myself
     }
 

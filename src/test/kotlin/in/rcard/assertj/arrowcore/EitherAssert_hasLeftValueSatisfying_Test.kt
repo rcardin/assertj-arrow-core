@@ -8,7 +8,7 @@ import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
 
 
-class EitherAssert_hasLeftValueSatisfying_Test {
+internal class EitherAssert_hasLeftValueSatisfying_Test {
 
     @Test
     internal fun `should fail when either is null`() {
@@ -35,8 +35,8 @@ class EitherAssert_hasLeftValueSatisfying_Test {
     }
 
     @Test
-    fun should_pass_if_consumer_passes() {
+    internal fun `should pass if consumer passes`() {
         val actual: Either<Int, String> = Either.Left(42)
-        EitherAssert(actual).hasLeftValueSatisfying { assertThat(it).isEqualTo(42) }
+        EitherAssert.assertThat(actual).hasLeftValueSatisfying { assertThat(it).isEqualTo(42) }
     }
 }
