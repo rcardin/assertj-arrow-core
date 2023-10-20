@@ -13,7 +13,7 @@ internal class EitherAssert_hasLeftValueSatisfying_Test {
     @Test
     internal fun `should fail when either is null`() {
         val actual: Either<Int, String>? = null
-        Assertions.assertThatThrownBy { EitherAssert(actual).hasLeftValueSatisfying { } }
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasLeftValueSatisfying { } }
             .isInstanceOf(AssertionError::class.java)
             .hasMessage(actualIsNull())
     }
@@ -21,7 +21,7 @@ internal class EitherAssert_hasLeftValueSatisfying_Test {
     @Test
     internal fun `should fail if either is right`() {
         val actual: Either<Int, String> = Either.Right("something")
-        Assertions.assertThatThrownBy { EitherAssert(actual).hasLeftValueSatisfying { } }
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasLeftValueSatisfying { } }
             .isInstanceOf(AssertionError::class.java)
             .hasMessage(EitherShouldBeLeft.shouldBeLeft(actual).create())
     }
@@ -29,7 +29,7 @@ internal class EitherAssert_hasLeftValueSatisfying_Test {
     @Test
     internal fun `should fail if consumer fails`() {
         val actual: Either<Int, String> = Either.Left(42)
-        Assertions.assertThatThrownBy { EitherAssert(actual).hasRightValueSatisfying { assertThat(it).isEqualTo(24) } }
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasRightValueSatisfying { assertThat(it).isEqualTo(24) } }
             .isInstanceOf(AssertionError::class.java)
             .hasMessage(("\nexpected: \"24\"\n but was: \"42\""))
     }
