@@ -10,6 +10,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Compani
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
+import java.util.function.Consumer
 
 /**
  * Assertions for [Either].
@@ -81,6 +82,17 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
+    /**
+     * Verifies that the actual [Either] contains a right-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     */
+    fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
+        assertIsRight()
+        actual.onRight { requirement(it) }
+        return myself
+    }
+
     private fun assertIsRight() {
         isNotNull
         if (!actual.isRight()) {
@@ -111,6 +123,17 @@ abstract class AbstractEitherAssert<
                 throwAssertionError(shouldContainOnLeftInstanceOf(actual, expectedClass))
             }
         }
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] contains a left-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     */
+    fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
+        assertIsLeft()
+        actual.onLeft { requirement(it) }
         return myself
     }
 

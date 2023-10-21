@@ -8,6 +8,7 @@ import `in`.rcard.assertj.arrowcore.errors.OptionShouldContainInstanceOf.Compani
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
+import java.util.function.Consumer
 
 /**
  * Assertions for [Option].
@@ -82,6 +83,20 @@ abstract class AbstractOptionAssert<
                 )
             }
         }
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Option] contains a value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement to further assert on the object contained inside the [Option].
+     * @return this assertion object.
+     */
+    fun hasValueSatisfying(requirement: (VALUE) -> Unit): SELF {
+        assertValueIsPresent()
+        actual.onSome { requirement(it) }
         return myself
     }
 
