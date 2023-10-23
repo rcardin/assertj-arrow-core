@@ -8,7 +8,6 @@ import `in`.rcard.assertj.arrowcore.errors.OptionShouldContainInstanceOf.Compani
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
-import java.util.function.Consumer
 
 /**
  * Assertions for [Option].
