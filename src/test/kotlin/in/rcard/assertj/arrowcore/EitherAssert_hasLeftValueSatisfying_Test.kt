@@ -29,9 +29,9 @@ internal class EitherAssert_hasLeftValueSatisfying_Test {
     @Test
     internal fun `should fail if consumer fails`() {
         val actual: Either<Int, String> = Either.Left(42)
-        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasRightValueSatisfying { assertThat(it).isEqualTo(24) } }
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasLeftValueSatisfying { assertThat(it).isEqualTo(24) } }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(("\nexpected: \"24\"\n but was: \"42\""))
+            .hasMessage(("\nexpected: 24\n but was: 42"))
     }
 
     @Test
