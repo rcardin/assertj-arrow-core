@@ -81,6 +81,20 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
+    /**
+     * Verifies that the actual [Either] contains a right-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement the consumer that will accept the right-sided value for deep asserting.
+     * @return this assertion object.
+     */
+    fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
+        assertIsRight()
+        actual.onRight { requirement(it) }
+        return myself
+    }
+
     private fun assertIsRight() {
         isNotNull
         if (!actual.isRight()) {
@@ -104,6 +118,13 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
+    /**
+     * Verifies that the actual left-sided [Either] contains a value that is an
+     * instance of the argument.
+     *
+     * @param expectedClass the expected class of the value inside the left-sided [Either].
+     * @return this assertion object.
+     */
     fun containsLeftInstanceOf(expectedClass: Class<*>): SELF {
         assertIsLeft()
         actual.onLeft { left ->
@@ -111,6 +132,20 @@ abstract class AbstractEitherAssert<
                 throwAssertionError(shouldContainOnLeftInstanceOf(actual, expectedClass))
             }
         }
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] contains a left-sided value and gives this value to the given
+     * consumer for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement the consumer that will accept the left-sided value for deep asserting.
+     * @return this assertion object.
+     */
+    fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
+        assertIsLeft()
+        actual.onLeft { requirement(it) }
         return myself
     }
 

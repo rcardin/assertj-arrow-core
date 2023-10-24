@@ -21,7 +21,7 @@ The library is available on Maven Central. To use it, add the following dependen
 <dependency>
   <groupId>in.rcard</groupId>
   <artifactId>assertj-arrow-core</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
   <scope>test</scope>
 </dependency>
 ```
