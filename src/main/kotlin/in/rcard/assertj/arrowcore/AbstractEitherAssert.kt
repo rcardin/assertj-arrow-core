@@ -18,6 +18,9 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @param LEFT type of the left value contained in the [Either].
  * @param RIGHT type of the right value contained in the [Either].
  * @author Riccardo Cardin
+ * @author Simon Frost
+ *
+ * @since 0.0.1
  */
 abstract class AbstractEitherAssert<
     SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>, LEFT : Any, RIGHT : Any,
@@ -88,6 +91,8 @@ abstract class AbstractEitherAssert<
      *
      * @param requirement the consumer that will accept the right-sided value for deep asserting.
      * @return this assertion object.
+     *
+     * @since 0.1.0
      */
     fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
         assertIsRight()
@@ -142,6 +147,7 @@ abstract class AbstractEitherAssert<
      *
      * @param requirement the consumer that will accept the left-sided value for deep asserting.
      * @return this assertion object.
+     * @since 0.1.0
      */
     fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
         assertIsLeft()

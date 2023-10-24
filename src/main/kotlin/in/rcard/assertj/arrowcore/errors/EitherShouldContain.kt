@@ -7,6 +7,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * Build error message when an [Either] should contain a specific value.
  *
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 internal class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: Any) :
     BasicErrorMessageFactory(message, actual, expected) {

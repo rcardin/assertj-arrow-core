@@ -7,6 +7,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * Build error message when an [Either] should be left.
  *
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 internal class EitherShouldBeLeft(actual: Either<*, *>) :
     BasicErrorMessageFactory("%nExpecting an Either to be left but was <$actual>.") {

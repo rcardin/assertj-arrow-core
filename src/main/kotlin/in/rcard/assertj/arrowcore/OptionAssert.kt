@@ -7,6 +7,7 @@ import arrow.core.Option
  *
  * @param VALUE type of the value contained in the [Option].
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 class OptionAssert<VALUE : Any>(option: Option<VALUE>?) :
     AbstractOptionAssert<OptionAssert<VALUE>, VALUE>(option) {

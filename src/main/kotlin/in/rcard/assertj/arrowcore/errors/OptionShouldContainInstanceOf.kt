@@ -7,6 +7,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * Build an error message when a value should be instance of a specific class.
  *
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 internal class OptionShouldContainInstanceOf(message: String) : BasicErrorMessageFactory(message) {
 
