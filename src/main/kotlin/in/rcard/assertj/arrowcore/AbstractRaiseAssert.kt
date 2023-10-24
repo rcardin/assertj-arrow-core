@@ -10,6 +10,15 @@ import org.assertj.core.api.AbstractAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
+/**
+ * Assertions for functions within a [Raise] context.
+ *
+ * @param VALUE type of the value returned by the function.
+ * @param ERROR type of the logical error raised by the function.
+ * @author Riccardo Cardin
+ *
+ * @since 0.2.0
+ */
 abstract class AbstractRaiseAssert<
         SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>, ERROR : Any, VALUE : Any,
         >(lambda: context(Raise<ERROR>) () -> VALUE) :

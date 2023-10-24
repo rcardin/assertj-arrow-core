@@ -92,6 +92,7 @@ abstract class AbstractOptionAssert<
      *
      * @param requirement to further assert on the object contained inside the [Option].
      * @return this assertion object.
+     * @since 0.1.0
      */
     fun hasValueSatisfying(requirement: (VALUE) -> Unit): SELF {
         assertValueIsPresent()
