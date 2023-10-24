@@ -25,9 +25,6 @@ abstract class AbstractRaiseAssert<
                     throwAssertionError(RaiseShouldSucceedWith.shouldSucceedWith(expected, actual))
                 }
             },
-            catch = { ex: Throwable ->
-                throw ex
-            },
         )
     }
 
