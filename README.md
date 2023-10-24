@@ -8,8 +8,9 @@
 
 This project provides a set of [AssertJ](https://assertj.github.io/doc/) assertions for the [Arrow](https://arrow-kt.io/) library. In detail, the project provides assertions for the following Arrow types:
 
-- [x] `Either`
-- [x] `Option`
+- [x] `Either<E, A>`
+- [x] `Option<A>`
+- [x] `Raise<E>.() -> A`
 
 Maybe you're asking yourself: "Why do we need AssertJ assertions for Arrow types?". The answer is simple: We often use Kotlin and Arrow Kt inside a Java project using Spring Boot. In this case, we already have AssertJ in the classpath as an assertion library. So, why not use it to assert Arrow types?
 
