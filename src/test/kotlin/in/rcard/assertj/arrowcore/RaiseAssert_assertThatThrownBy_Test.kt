@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test
 internal class RaiseAssert_assertThatThrownBy_Test {
 
     @Test
-    fun `should succeed if the lambda throws an exception`() {
+    internal fun `should succeed if the lambda throws an exception`() {
         assertThatThrownBy { Dummy.aFunctionThatThrowsAnException() }
             .isInstanceOf(RuntimeException::class.java)
             .hasMessage("AN EXCEPTION")
     }
 
     @Test
-    fun `should fail if the lambda succeeds with a value`() {
+    internal fun `should fail if the lambda succeeds with a value`() {
         Assertions.assertThatThrownBy {
             assertThatThrownBy { Dummy.aFunctionWithContext(42) }
         }.isInstanceOf(AssertionError::class.java)
@@ -25,7 +25,7 @@ internal class RaiseAssert_assertThatThrownBy_Test {
     }
 
     @Test
-    fun `should fail if the lambda raises an error`() {
+    internal fun `should fail if the lambda raises an error`() {
         Assertions.assertThatThrownBy {
             assertThatThrownBy { Dummy.aFunctionThatRaisesAnError() }
         }.isInstanceOf(AssertionError::class.java)
