@@ -2,10 +2,11 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeded.Companion.shouldFailButSucceeded
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailWith.Companion.shouldFailWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith.Companion.shouldSucceedWith
 import org.assertj.core.api.AbstractAssert
-import org.assertj.core.api.Assertions
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
@@ -16,28 +17,30 @@ abstract class AbstractRaiseAssert<
 
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
 
-    fun succeedsWith(expected: VALUE) {
+    fun succeedsWith(expectedValue: VALUE) {
         fold(
             block = actual,
-            recover = { error: ERROR -> throwAssertionError(shouldSucceedButFailed(expected, error)) },
-            transform = { actual ->
-                if (!comparisonStrategy.areEqual(actual, expected)) {
-                    throwAssertionError(RaiseShouldSucceedWith.shouldSucceedWith(expected, actual))
+            recover = { actualError: ERROR -> throwAssertionError(shouldSucceedButFailed(expectedValue, actualError)) },
+            transform = { actualValue ->
+                if (!comparisonStrategy.areEqual(actualValue, expectedValue)) {
+                    throwAssertionError(shouldSucceedWith(expectedValue, actualValue))
                 }
             },
         )
     }
 
-    fun raises(expected: ERROR) {
+    fun raises(expectedError: ERROR) {
         fold(
             block = actual,
-            recover = { Assertions.assertThat(it).isEqualTo(expected) },
-            transform = { failWithMessage("Expected lambda to raise a logical error but it succeeded with value '$it'") },
-            catch = { ex: Throwable ->
-                when (ex) {
-                    is AssertionError -> throw ex
-                    else -> failWithMessage("Expected lambda to raise a logical error but it throws the exception '$ex'")
+            recover = { actualError ->
+                if (!comparisonStrategy.areEqual(actualError, expectedError)) {
+                    throwAssertionError(shouldFailWith(expectedError, actualError))
                 }
+            },
+            transform = { actualValue ->
+                throwAssertionError(
+                    shouldFailButSucceeded(expectedError, actualValue)
+                )
             },
         )
     }
