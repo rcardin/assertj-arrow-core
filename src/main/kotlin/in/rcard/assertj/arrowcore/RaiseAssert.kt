@@ -27,6 +27,11 @@ class RaiseAssert<ERROR : Any, VALUE : Any> private constructor(lambda: Raise<ER
         ): RaiseAssert<ERROR, VALUE> =
             RaiseAssert(lambda)
 
+        /**
+         * Verifies that the function in the [Raise] context throws an exception.
+         * @param shouldRaiseThrowable the function to be executed in the [Raise] context.
+         * @return the [AbstractThrowableAssert] to be used to verify the exception.
+         */
         fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
             @BuilderInference shouldRaiseThrowable: Raise<ERROR>.() -> VALUE
         ): AbstractThrowableAssert<*, out Throwable> {

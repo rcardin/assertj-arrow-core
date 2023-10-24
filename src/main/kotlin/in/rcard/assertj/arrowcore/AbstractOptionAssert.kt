@@ -15,6 +15,8 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @param SELF  the "self" type of this assertion class.
  * @param VALUE type of the value contained in the [Option].
  * @author Riccardo Cardin
+ * @author Simon Frost
+ * @since 0.0.1
  */
 abstract class AbstractOptionAssert<
     SELF : AbstractOptionAssert<SELF, VALUE>, VALUE : Any,

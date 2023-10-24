@@ -7,6 +7,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * Build error message when a value should be present in an [Option].
  *
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 internal class OptionShouldBePresent :
     BasicErrorMessageFactory("%nExpecting Option to contain a value but it didn't.".format()) {

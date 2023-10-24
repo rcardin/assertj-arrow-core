@@ -7,6 +7,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * Build error message when an [Option] should contain a specific value.
  *
  * @author Riccardo Cardin
+ * @since 0.0.1
  */
 internal class OptionShouldContain(message: String, vararg objs: Any) :
     BasicErrorMessageFactory(message, *objs) {

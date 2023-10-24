@@ -18,6 +18,9 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @param LEFT type of the left value contained in the [Either].
  * @param RIGHT type of the right value contained in the [Either].
  * @author Riccardo Cardin
+ * @author Simon Frost
+ *
+ * @since 0.0.1
  */
 abstract class AbstractEitherAssert<
     SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>, LEFT : Any, RIGHT : Any,
