@@ -43,7 +43,7 @@ abstract class AbstractOptionAssert<
      */
     fun isEmpty(): SELF {
         isNotNull
-        if (actual.isDefined()) throwAssertionError(shouldBeEmpty(actual))
+        if (actual.isSome()) throwAssertionError(shouldBeEmpty(actual))
         return myself
     }
 
@@ -74,7 +74,7 @@ abstract class AbstractOptionAssert<
      */
     fun containsInstanceOf(expectedClass: Class<*>): SELF {
         assertValueIsPresent()
-        actual.tap { value ->
+        actual.onSome { value ->
             if (!expectedClass.isInstance(value)) {
                 throwAssertionError(
                     shouldContainInstanceOf(
@@ -104,6 +104,6 @@ abstract class AbstractOptionAssert<
 
     private fun assertValueIsPresent() {
         isNotNull
-        if (actual.isEmpty()) throwAssertionError(shouldBePresent())
+        if (actual.isNone()) throwAssertionError(shouldBePresent())
     }
 }

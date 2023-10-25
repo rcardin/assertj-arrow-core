@@ -10,7 +10,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @since 0.0.1
  */
 internal class OptionShouldBeEmpty private constructor(expected: Option<*>) :
-    BasicErrorMessageFactory("%nExpecting an Option to be empty but was <%s>.", expected.orNull()) {
+    BasicErrorMessageFactory("%nExpecting an Option to be empty but was <%s>.", expected.getOrNull()) {
     companion object {
         internal fun shouldBeEmpty(actual: Option<*>): OptionShouldBeEmpty =
             OptionShouldBeEmpty(actual)
