@@ -20,7 +20,7 @@ import org.assertj.core.internal.StandardComparisonStrategy
  */
 abstract class AbstractRaiseAssert<
         SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>, ERROR : Any, VALUE : Any,
-        >(lambda: context(Raise<ERROR>) () -> VALUE) :
+        > internal constructor(lambda: context(Raise<ERROR>) () -> VALUE) :
     AbstractAssert<SELF, context(Raise<ERROR>) () -> VALUE>(lambda, AbstractRaiseAssert::class.java) {
 
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()

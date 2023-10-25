@@ -19,8 +19,8 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @since 0.0.1
  */
 abstract class AbstractOptionAssert<
-    SELF : AbstractOptionAssert<SELF, VALUE>, VALUE : Any,
-    >(
+        SELF : AbstractOptionAssert<SELF, VALUE>, VALUE : Any,
+        > internal constructor(
     option: Option<VALUE>?,
 ) : AbstractObjectAssert<SELF, Option<VALUE>>(option, AbstractOptionAssert::class.java) {
 
