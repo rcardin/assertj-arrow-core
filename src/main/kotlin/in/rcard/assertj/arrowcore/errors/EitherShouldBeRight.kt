@@ -9,7 +9,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Riccardo Cardin
  * @since 0.0.1
  */
-internal class EitherShouldBeRight(actual: Either<*, *>) :
+internal class EitherShouldBeRight private constructor(actual: Either<*, *>) :
     BasicErrorMessageFactory("%nExpecting an Either to be right but was <$actual>.") {
     companion object {
         internal fun shouldBeRight(actual: Either<*, *>): EitherShouldBeRight = EitherShouldBeRight(actual)

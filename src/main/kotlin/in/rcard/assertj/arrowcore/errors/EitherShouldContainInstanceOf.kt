@@ -10,7 +10,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Riccardo Cardin
  * @since 0.0.1
  */
-internal class EitherShouldContainInstanceOf(message: String) : BasicErrorMessageFactory(message) {
+internal class EitherShouldContainInstanceOf private constructor(message: String) : BasicErrorMessageFactory(message) {
     companion object {
         private const val EXPECTING_TO_CONTAIN_DIFFERENT_INSTANCE =
             "%nExpecting:%n <%s>%nto contain a value that is an instance of:%n <%s>%nbut did contain an instance of:%n <%s>"

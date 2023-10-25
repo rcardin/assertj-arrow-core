@@ -9,7 +9,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Riccardo Cardin
  * @since 0.0.1
  */
-internal class OptionShouldBePresent :
+internal class OptionShouldBePresent private constructor() :
     BasicErrorMessageFactory("%nExpecting Option to contain a value but it didn't.".format()) {
     companion object {
 

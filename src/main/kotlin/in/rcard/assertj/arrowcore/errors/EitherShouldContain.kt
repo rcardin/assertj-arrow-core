@@ -9,7 +9,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Riccardo Cardin
  * @since 0.0.1
  */
-internal class EitherShouldContain(message: String, actual: Either<Any, Any>, expected: Any) :
+internal class EitherShouldContain private constructor(message: String, actual: Either<Any, Any>, expected: Any) :
     BasicErrorMessageFactory(message, actual, expected) {
 
     companion object {

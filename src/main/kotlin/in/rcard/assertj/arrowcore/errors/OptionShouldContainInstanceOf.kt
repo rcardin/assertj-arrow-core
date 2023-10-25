@@ -9,7 +9,7 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Riccardo Cardin
  * @since 0.0.1
  */
-internal class OptionShouldContainInstanceOf(message: String) : BasicErrorMessageFactory(message) {
+internal class OptionShouldContainInstanceOf private constructor(message: String) : BasicErrorMessageFactory(message) {
 
     companion object {
         /**
