@@ -6,6 +6,7 @@ import `in`.rcard.assertj.arrowcore.errors.OptionShouldBePresent.Companion.shoul
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldContain.Companion.shouldContain
 import `in`.rcard.assertj.arrowcore.errors.OptionShouldContainInstanceOf.Companion.shouldContainInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
+import org.assertj.core.api.Assertions
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
@@ -25,16 +26,6 @@ abstract class AbstractOptionAssert<
 ) : AbstractObjectAssert<SELF, Option<VALUE>>(option, AbstractOptionAssert::class.java) {
 
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
-
-    /**
-     * Verifies that there is a value present in the actual [Option].
-     *
-     * @return this assertion object.
-     */
-    fun isDefined(): SELF {
-        assertValueIsPresent()
-        return myself
-    }
 
     /**
      * Verifies that the actual [Option] is empty.
@@ -96,9 +87,35 @@ abstract class AbstractOptionAssert<
      * @return this assertion object.
      * @since 0.1.0
      */
+    @Deprecated(
+        "hasValueSatisfying can be replaced using the method get() and chaining assertions on the returned object.",
+        ReplaceWith("get().satisfies(requirement)"),
+    )
     fun hasValueSatisfying(requirement: (VALUE) -> Unit): SELF {
         assertValueIsPresent()
         actual.onSome { requirement(it) }
+        return myself
+    }
+
+    /**
+     * Verifies that the actual [Option] is not null and not empty and returns an Object assertion that allows
+     * chaining (object) assertions on the optional value.
+     *
+     * @since 0.2.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the value of the [Option].
+     */
+    fun get(): AbstractObjectAssert<*, VALUE> {
+        isDefined()
+        return Assertions.assertThat(actual.getOrNull())
+    }
+
+    /**
+     * Verifies that there is a value present in the actual [Option].
+     *
+     * @return this assertion object.
+     */
+    fun isDefined(): SELF {
+        assertValueIsPresent()
         return myself
     }
 
