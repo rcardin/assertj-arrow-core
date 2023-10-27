@@ -8,6 +8,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldC
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnLeftInstanceOf
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnRightInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
+import org.assertj.core.api.Assertions
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
@@ -94,10 +95,26 @@ abstract class AbstractEitherAssert<
      *
      * @since 0.1.0
      */
+    @Deprecated(
+        "hasRightValueSatisfying can be replaced using the method asRight() and chaining assertions on the returned object.",
+        ReplaceWith("asRight().satisfies(requirement)"),
+    )
     fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
         assertIsRight()
         actual.onRight { requirement(it) }
         return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] is not null and contains a right-sided value and returns an Object assertion
+     * that allows chaining (object) assertions on the value.
+     *
+     * @since 0.2.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the right-sided value of the [Either].
+     */
+    fun asRight(): AbstractObjectAssert<*, RIGHT> {
+        assertIsRight()
+        return Assertions.assertThat(actual.getOrNull())
     }
 
     private fun assertIsRight() {
@@ -149,10 +166,26 @@ abstract class AbstractEitherAssert<
      * @return this assertion object.
      * @since 0.1.0
      */
+    @Deprecated(
+        "hasLeftValueSatisfying can be replaced using the method asLeft() and chaining assertions on the returned object.",
+        ReplaceWith("asLeft().satisfies(requirement)"),
+    )
     fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
         assertIsLeft()
         actual.onLeft { requirement(it) }
         return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] is not null and contains a left-sided value and returns an Object assertion
+     * that allows chaining (object) assertions on the value.
+     *
+     * @since 0.2.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the left-sided value of the [Either].
+     */
+    fun asLeft(): AbstractObjectAssert<*, LEFT> {
+        assertIsLeft()
+        return Assertions.assertThat(actual.leftOrNull())
     }
 
     private fun assertIsLeft() {
