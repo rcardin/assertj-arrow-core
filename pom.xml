@@ -6,7 +6,7 @@
 
     <groupId>in.rcard</groupId>
     <artifactId>assertj-arrow-core</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
 
     <name>AssertJ fluent assertions for Kotlin Arrow Core library</name>
     <description>Rich and fluent assertions for testing Kotlin Arrow Core types</description>
