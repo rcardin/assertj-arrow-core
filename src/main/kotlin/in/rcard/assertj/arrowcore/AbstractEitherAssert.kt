@@ -168,6 +168,18 @@ abstract class AbstractEitherAssert<
         return myself
     }
 
+    /**
+     * Verifies that the actual [Either] is not null and contains a left-sided value and returns an Object assertion
+     * that allows chaining (object) assertions on the value.
+     *
+     * @since 0.2.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the left-sided value of the [Either].
+     */
+    fun asLeft(): AbstractObjectAssert<*, LEFT> {
+        assertIsLeft()
+        return Assertions.assertThat(actual.leftOrNull())
+    }
+
     private fun assertIsLeft() {
         isNotNull
         if (!actual.isLeft()) {
