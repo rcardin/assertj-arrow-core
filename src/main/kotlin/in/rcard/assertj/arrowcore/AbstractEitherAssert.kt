@@ -95,6 +95,10 @@ abstract class AbstractEitherAssert<
      *
      * @since 0.1.0
      */
+    @Deprecated(
+        "hasRightValueSatisfying can be replaced using the method asRight() and chaining assertions on the returned object.",
+        ReplaceWith("asRight().satisfies(requirement)"),
+    )
     fun hasRightValueSatisfying(requirement: (RIGHT) -> Unit): SELF {
         assertIsRight()
         actual.onRight { requirement(it) }
@@ -162,6 +166,10 @@ abstract class AbstractEitherAssert<
      * @return this assertion object.
      * @since 0.1.0
      */
+    @Deprecated(
+        "hasLeftValueSatisfying can be replaced using the method asLeft() and chaining assertions on the returned object.",
+        ReplaceWith("asLeft().satisfies(requirement)"),
+    )
     fun hasLeftValueSatisfying(requirement: (LEFT) -> Unit): SELF {
         assertIsLeft()
         actual.onLeft { requirement(it) }
