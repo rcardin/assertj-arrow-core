@@ -1,6 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Either
+import arrow.core.Option
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBeLeft
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeRight.Companion.shouldBeRight
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnLeft
@@ -8,6 +9,7 @@ import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldC
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnLeftInstanceOf
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContainInstanceOf.Companion.shouldContainOnRightInstanceOf
 import org.assertj.core.api.AbstractObjectAssert
+import org.assertj.core.api.Assertions
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
@@ -98,6 +100,18 @@ abstract class AbstractEitherAssert<
         assertIsRight()
         actual.onRight { requirement(it) }
         return myself
+    }
+
+    /**
+     * Verifies that the actual [Either] is not null and contains a right-sided value and returns an Object assertion
+     * that allows chaining (object) assertions on the value.
+     *
+     * @since 0.2.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the right-sided value of the [Either].
+     */
+    fun asRight(): AbstractObjectAssert<*, RIGHT> {
+        assertIsRight()
+        return Assertions.assertThat(actual.getOrNull())
     }
 
     private fun assertIsRight() {
