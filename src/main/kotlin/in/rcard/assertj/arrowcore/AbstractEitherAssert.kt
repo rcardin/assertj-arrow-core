@@ -1,7 +1,6 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Either
-import arrow.core.Option
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBeLeft
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeRight.Companion.shouldBeRight
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnLeft
