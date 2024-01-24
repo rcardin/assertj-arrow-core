@@ -26,7 +26,7 @@
     </licenses>
     <properties>
         <java.version>11</java.version>
-        <assertj-core.version>3.25.1</assertj-core.version>
+        <assertj-core.version>3.25.2</assertj-core.version>
         <kotlin-stdlib.version>1.9.22</kotlin-stdlib.version>
         <arrow-core.version>1.2.1</arrow-core.version>
         <junit-jupiter.version>5.10.1</junit-jupiter.version>
