@@ -2,7 +2,8 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeded.Companion.shouldFailButSucceeded
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailButSucceedsWith
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailWithButSucceedsWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailWith.Companion.shouldFailWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith.Companion.shouldSucceedWith
@@ -62,7 +63,7 @@ abstract class AbstractRaiseAssert<
      *
      * @see succeedsWith
      */
-    fun succeeded() {
+    fun succeeds() {
         fold(
             block = actual,
             recover = { actualError: ERROR -> throwAssertionError(shouldSucceedButFailed(actualError)) },
@@ -84,7 +85,24 @@ abstract class AbstractRaiseAssert<
             },
             transform = { actualValue ->
                 throwAssertionError(
-                    shouldFailButSucceeded(expectedError, actualValue),
+                    shouldFailWithButSucceedsWith(expectedError, actualValue),
+                )
+            },
+        )
+    }
+
+    /**
+     * Verifies that the function in the [Raise] context fails, no matter the type of the logical error.
+     *
+     * @see raises
+     */
+    fun fails() {
+        fold(
+            block = actual,
+            recover = { _ -> },
+            transform = { actualValue ->
+                throwAssertionError(
+                    shouldFailButSucceedsWith(actualValue),
                 )
             },
         )
