@@ -26,12 +26,12 @@
     </licenses>
     <properties>
         <java.version>17</java.version>
-        <assertj-core.version>3.24.2</assertj-core.version>
-        <kotlin-stdlib.version>1.9.22</kotlin-stdlib.version>
-        <arrow-core.version>1.2.1</arrow-core.version>
-        <junit-jupiter.version>5.10.0</junit-jupiter.version>
+        <assertj-core.version>3.26.3</assertj-core.version>
+        <kotlin-stdlib.version>2.0.0</kotlin-stdlib.version>
+        <arrow-core.version>1.2.4</arrow-core.version>
+        <junit-jupiter.version>5.10.3</junit-jupiter.version>
         <dokka-maven-plugin.version>1.9.0</dokka-maven-plugin.version>
-        <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
     </properties>
 
     <url>https://github.com/rcardin/assertj-arrow-core</url>

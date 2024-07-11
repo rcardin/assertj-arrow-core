@@ -24,11 +24,12 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @since 0.0.1
  */
 abstract class AbstractEitherAssert<
-        SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>, LEFT : Any, RIGHT : Any,
-        > internal constructor(
+    SELF : AbstractEitherAssert<SELF, LEFT, RIGHT>,
+    LEFT : Any,
+    RIGHT : Any,
+> internal constructor(
     either: Either<LEFT, RIGHT>?,
 ) : AbstractObjectAssert<SELF, Either<LEFT, RIGHT>>(either, AbstractEitherAssert::class.java) {
-
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
 
     /**

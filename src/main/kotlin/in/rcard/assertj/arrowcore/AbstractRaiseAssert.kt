@@ -2,10 +2,12 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeded.Companion.shouldFailButSucceeded
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailButSucceedsWith
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailWithButSucceedsWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailWith.Companion.shouldFailWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith.Companion.shouldSucceedWith
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWithButFailed.Companion.shouldSucceedWithButFailed
 import org.assertj.core.api.AbstractAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
@@ -19,10 +21,17 @@ import org.assertj.core.internal.StandardComparisonStrategy
  * @since 0.2.0
  */
 abstract class AbstractRaiseAssert<
-        SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>, ERROR : Any, VALUE : Any,
-        > internal constructor(lambda: context(Raise<ERROR>) () -> VALUE) :
-    AbstractAssert<SELF, context(Raise<ERROR>) () -> VALUE>(lambda, AbstractRaiseAssert::class.java) {
-
+    SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>,
+    ERROR : Any,
+    VALUE : Any,
+> internal constructor(
+    lambda: context(Raise<ERROR>)
+    () -> VALUE,
+) : AbstractAssert<
+        SELF,
+        context(Raise<ERROR>)
+        () -> VALUE,
+    >(lambda, AbstractRaiseAssert::class.java) {
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
 
     /**
@@ -32,12 +41,33 @@ abstract class AbstractRaiseAssert<
     fun succeedsWith(expectedValue: VALUE) {
         fold(
             block = actual,
-            recover = { actualError: ERROR -> throwAssertionError(shouldSucceedButFailed(expectedValue, actualError)) },
+            recover = { actualError: ERROR ->
+                throwAssertionError(
+                    shouldSucceedWithButFailed(
+                        expectedValue,
+                        actualError,
+                    ),
+                )
+            },
             transform = { actualValue ->
                 if (!comparisonStrategy.areEqual(actualValue, expectedValue)) {
                     throwAssertionError(shouldSucceedWith(expectedValue, actualValue))
                 }
             },
+        )
+    }
+
+    /**
+     * Verifies that the function in the [Raise] context succeeded. No check on the value returned by the function is
+     * performed.
+     *
+     * @see succeedsWith
+     */
+    fun succeeds() {
+        fold(
+            block = actual,
+            recover = { actualError: ERROR -> throwAssertionError(shouldSucceedButFailed(actualError)) },
+            transform = { _ -> },
         )
     }
 
@@ -55,7 +85,24 @@ abstract class AbstractRaiseAssert<
             },
             transform = { actualValue ->
                 throwAssertionError(
-                    shouldFailButSucceeded(expectedError, actualValue)
+                    shouldFailWithButSucceedsWith(expectedError, actualValue),
+                )
+            },
+        )
+    }
+
+    /**
+     * Verifies that the function in the [Raise] context fails, no matter the type of the logical error.
+     *
+     * @see raises
+     */
+    fun fails() {
+        fold(
+            block = actual,
+            recover = { _ -> },
+            transform = { actualValue ->
+                throwAssertionError(
+                    shouldFailButSucceedsWith(actualValue),
                 )
             },
         )
