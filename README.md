@@ -1,4 +1,4 @@
-![Kotlin Version](https://img.shields.io/badge/Kotlin-1.9.10-blue?style=flat&logo=kotlin)
+![Kotlin Version](https://img.shields.io/badge/Kotlin-2.0.0-blue?style=flat&logo=kotlin)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/rcardin/assertj-arrow-core/ci.yml?branch=main)
 ![Maven Central](https://img.shields.io/maven-central/v/in.rcard/assertj-arrow-core)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/rcardin/assertj-arrow-core)
@@ -23,7 +23,7 @@ The library is available on Maven Central. To use it, add the following dependen
 <dependency>
   <groupId>in.rcard</groupId>
   <artifactId>assertj-arrow-core</artifactId>
-  <version>0.2.0</version>
+  <version>1.0.0</version>
   <scope>test</scope>
 </dependency>
 ```
