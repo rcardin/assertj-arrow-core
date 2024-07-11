@@ -6,7 +6,6 @@ import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Test
 
 internal class OptionAssert_assertThat_Test {
-
     @Test
     internal fun `should create an assertion instance when given object is not null`() {
         // GIVEN
