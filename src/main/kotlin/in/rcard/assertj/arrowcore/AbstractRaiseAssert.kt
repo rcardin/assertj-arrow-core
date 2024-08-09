@@ -25,12 +25,10 @@ abstract class AbstractRaiseAssert<
     ERROR : Any,
     VALUE : Any,
 > internal constructor(
-    lambda: context(Raise<ERROR>)
-    () -> VALUE,
+    lambda: Raise<ERROR>.() -> VALUE,
 ) : AbstractAssert<
         SELF,
-        context(Raise<ERROR>)
-        () -> VALUE,
+        Raise<ERROR>.() -> VALUE,
     >(lambda, AbstractRaiseAssert::class.java) {
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
 
