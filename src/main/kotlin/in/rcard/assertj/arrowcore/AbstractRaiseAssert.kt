@@ -1,13 +1,10 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
-import arrow.core.raise.fold
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailButSucceedsWith
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailWithButSucceedsWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailWith.Companion.shouldFailWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion.shouldSucceedButFailed
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith.Companion.shouldSucceedWith
-import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWithButFailed.Companion.shouldSucceedWithButFailed
 import org.assertj.core.api.AbstractAssert
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
@@ -25,11 +22,11 @@ abstract class AbstractRaiseAssert<
     ERROR : Any,
     VALUE : Any,
 > internal constructor(
-    lambda: Raise<ERROR>.() -> VALUE,
+    raiseResult: RaiseResult<ERROR, VALUE>,
 ) : AbstractAssert<
         SELF,
-        Raise<ERROR>.() -> VALUE,
-    >(lambda, AbstractRaiseAssert::class.java) {
+        RaiseResult<ERROR, VALUE>,
+    >(raiseResult, AbstractRaiseAssert::class.java) {
     private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
 
     /**
@@ -37,22 +34,24 @@ abstract class AbstractRaiseAssert<
      * @param expectedValue the expected value returned by the function.
      */
     fun succeedsWith(expectedValue: VALUE) {
-        fold(
-            block = actual,
-            recover = { actualError: ERROR ->
+        when (actual) {
+            is RaiseResult.Failure<ERROR> -> {
                 throwAssertionError(
-                    shouldSucceedWithButFailed(
-                        expectedValue,
-                        actualError,
-                    ),
+                    shouldSucceedButFailed((actual as RaiseResult.Failure<ERROR>).error),
                 )
-            },
-            transform = { actualValue ->
+            }
+
+            is RaiseResult.FailureWithException -> {
+                // TODO: Add a specific error message
+            }
+
+            is RaiseResult.Success<VALUE> -> {
+                val actualValue = (actual as RaiseResult.Success<VALUE>).value
                 if (!comparisonStrategy.areEqual(actualValue, expectedValue)) {
                     throwAssertionError(shouldSucceedWith(expectedValue, actualValue))
                 }
-            },
-        )
+            }
+        }
     }
 
     /**
@@ -62,11 +61,20 @@ abstract class AbstractRaiseAssert<
      * @see succeedsWith
      */
     fun succeeds() {
-        fold(
-            block = actual,
-            recover = { actualError: ERROR -> throwAssertionError(shouldSucceedButFailed(actualError)) },
-            transform = { _ -> },
-        )
+        when (actual) {
+            is RaiseResult.Failure<ERROR> ->
+                throwAssertionError(
+                    shouldSucceedButFailed((actual as RaiseResult.Failure<ERROR>).error),
+                )
+
+            is RaiseResult.FailureWithException -> {
+                // TODO: Add a specific error message
+            }
+
+            is RaiseResult.Success<VALUE> -> {
+                // Nothing to do
+            }
+        }
     }
 
     /**
@@ -74,19 +82,24 @@ abstract class AbstractRaiseAssert<
      * @param expectedError the expected error raised by the function.
      */
     fun raises(expectedError: ERROR) {
-        fold(
-            block = actual,
-            recover = { actualError ->
+        when (actual) {
+            is RaiseResult.Failure<ERROR> -> {
+                val actualError = (actual as RaiseResult.Failure<ERROR>).error
                 if (!comparisonStrategy.areEqual(actualError, expectedError)) {
                     throwAssertionError(shouldFailWith(expectedError, actualError))
                 }
-            },
-            transform = { actualValue ->
+            }
+
+            is RaiseResult.FailureWithException -> {
+                // TODO: Add a specific error message
+            }
+
+            is RaiseResult.Success<VALUE> -> {
                 throwAssertionError(
-                    shouldFailWithButSucceedsWith(expectedError, actualValue),
+                    shouldFailButSucceedsWith((actual as RaiseResult.Success<VALUE>).value),
                 )
-            },
-        )
+            }
+        }
     }
 
     /**
@@ -95,14 +108,33 @@ abstract class AbstractRaiseAssert<
      * @see raises
      */
     fun fails() {
-        fold(
-            block = actual,
-            recover = { _ -> },
-            transform = { actualValue ->
+        when (actual) {
+            is RaiseResult.Failure<ERROR> -> {
+                // Nothing to do
+            }
+
+            is RaiseResult.FailureWithException -> {
+                // TODO: Add a specific error message
+            }
+
+            is RaiseResult.Success ->
                 throwAssertionError(
-                    shouldFailButSucceedsWith(actualValue),
+                    shouldFailButSucceedsWith((actual as RaiseResult.Success<VALUE>).value),
                 )
-            },
-        )
+        }
     }
+}
+
+sealed interface RaiseResult<ERROR : Any, VALUE : Any> {
+    data class Success<VALUE : Any>(
+        val value: VALUE,
+    ) : RaiseResult<Nothing, VALUE>
+
+    data class Failure<ERROR : Any>(
+        val error: ERROR,
+    ) : RaiseResult<ERROR, Nothing>
+
+    data class FailureWithException(
+        val exception: Throwable,
+    ) : RaiseResult<Nothing, Nothing>
 }

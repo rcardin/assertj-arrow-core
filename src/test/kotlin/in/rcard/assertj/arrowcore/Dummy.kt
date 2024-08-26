@@ -3,13 +3,11 @@ package `in`.rcard.assertj.arrowcore
 import arrow.core.raise.Raise
 
 internal object Dummy {
+    fun Raise<String>.aFunctionWithContext(input: Int): Int = input
 
-    context (Raise<String>)
-    fun aFunctionWithContext(input: Int): Int = input
+    fun Raise<String>.aFunctionThatRaisesAnError(): Int = raise("LOGICAL ERROR")
 
-    context (Raise<String>)
-    fun aFunctionThatRaisesAnError(): Int = raise("LOGICAL ERROR")
+    fun Raise<String>.aFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
 
-    context (Raise<String>)
-    fun aFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
+    suspend fun Raise<String>.aSuspendFunctionWithContext(input: Int): Int = input
 }
