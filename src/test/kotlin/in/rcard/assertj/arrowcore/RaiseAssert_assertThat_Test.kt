@@ -14,7 +14,7 @@ internal class RaiseAssert_assertThat_Test {
     }
 
     @Test
-    fun `should create an assertion instance for suspending lambdas`() =
+    internal fun `should create an assertion instance for suspending lambdas`() =
         runTest {
             val assertion = RaiseAssert.assertThat { aSuspendFunctionWithContext(42) }
             then(assertion).isNotNull.isInstanceOf(RaiseAssert::class.java)

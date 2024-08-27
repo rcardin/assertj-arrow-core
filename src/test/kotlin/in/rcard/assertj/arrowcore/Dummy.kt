@@ -10,4 +10,6 @@ internal object Dummy {
     fun Raise<String>.aFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
 
     suspend fun Raise<String>.aSuspendFunctionWithContext(input: Int): Int = input
+
+    suspend fun Raise<String>.aSuspendFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
 }

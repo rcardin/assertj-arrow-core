@@ -25,7 +25,7 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
     companion object {
         inline fun <ERROR : Any, VALUE : Any> assertThat(
             @BuilderInference lambda: Raise<ERROR>.() -> VALUE,
-        ): RaiseAssert<out ERROR, out VALUE> {
+        ): RaiseAssert<ERROR, VALUE> {
             val raiseResult =
                 fold(
                     block = lambda,
@@ -41,7 +41,7 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
          * @param shouldRaiseThrowable the function to be executed in the [Raise] context.
          * @return the [AbstractThrowableAssert] to be used to verify the exception.
          */
-        fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
+        inline fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
             @BuilderInference shouldRaiseThrowable: Raise<ERROR>.() -> VALUE,
         ): AbstractThrowableAssert<*, out Throwable> {
             val throwable: Throwable? =
