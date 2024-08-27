@@ -19,29 +19,42 @@ import kotlin.experimental.ExperimentalTypeInference
  *
  * @since 0.2.0
  */
-class RaiseAssert<ERROR : Any, VALUE : Any> private constructor(lambda: Raise<ERROR>.() -> VALUE) :
-    AbstractRaiseAssert<RaiseAssert<ERROR, VALUE>, ERROR, VALUE>(lambda) {
+class RaiseAssert<ERROR : Any, VALUE : Any>(
+    raiseResult: RaiseResult<ERROR, VALUE>,
+) : AbstractRaiseAssert<RaiseAssert<ERROR, VALUE>, ERROR, VALUE>(raiseResult) {
     companion object {
-        fun <ERROR : Any, VALUE : Any> assertThat(
-            @BuilderInference lambda: Raise<ERROR>.() -> VALUE
-        ): RaiseAssert<ERROR, VALUE> =
-            RaiseAssert(lambda)
+        inline fun <ERROR : Any, VALUE : Any> assertThat(
+            @BuilderInference lambda: Raise<ERROR>.() -> VALUE,
+        ): RaiseAssert<ERROR, VALUE> {
+            val raiseResult =
+                fold(
+                    block = lambda,
+                    catch = { throwable -> RaiseResult.FailureWithException(throwable) },
+                    recover = { error -> RaiseResult.Failure(error) },
+                    transform = { value -> RaiseResult.Success(value) },
+                )
+            return RaiseAssert(raiseResult)
+        }
 
         /**
          * Verifies that the function in the [Raise] context throws an exception.
          * @param shouldRaiseThrowable the function to be executed in the [Raise] context.
          * @return the [AbstractThrowableAssert] to be used to verify the exception.
          */
-        fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
-            @BuilderInference shouldRaiseThrowable: Raise<ERROR>.() -> VALUE
+        inline fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
+            @BuilderInference shouldRaiseThrowable: Raise<ERROR>.() -> VALUE,
         ): AbstractThrowableAssert<*, out Throwable> {
-            val throwable: Throwable? = fold(block = shouldRaiseThrowable,
-                recover = { null },
-                transform = { null },
-                catch = { exception -> exception })
+            val throwable: Throwable? =
+                fold(
+                    block = shouldRaiseThrowable,
+                    recover = { null },
+                    transform = { null },
+                    catch = { exception -> exception },
+                )
 
             @Suppress("KotlinConstantConditions")
-            return throwable?.let { return Assertions.assertThat(throwable) } ?: throw Failures.instance()
+            return throwable?.let { return Assertions.assertThat(throwable) } ?: throw Failures
+                .instance()
                 .failure(Assertions.assertThat(throwable).writableAssertionInfo, shouldThrowAnException())
         }
     }

@@ -10,11 +10,8 @@ private const val SHOULD_THROW_AN_EXCEPTION_MESSAGE = "%nExpecting code to throw
  * @author Riccardo Cardin
  * @since 0.2.0
  */
-internal class RaiseShouldThrowAnException private constructor() :
-    BasicErrorMessageFactory(SHOULD_THROW_AN_EXCEPTION_MESSAGE) {
-
+class RaiseShouldThrowAnException private constructor() : BasicErrorMessageFactory(SHOULD_THROW_AN_EXCEPTION_MESSAGE) {
     companion object {
-        internal fun shouldThrowAnException(): RaiseShouldThrowAnException =
-            RaiseShouldThrowAnException()
+        fun shouldThrowAnException(): RaiseShouldThrowAnException = RaiseShouldThrowAnException()
     }
 }
