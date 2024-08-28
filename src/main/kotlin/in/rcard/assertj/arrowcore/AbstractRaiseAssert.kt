@@ -132,6 +132,11 @@ abstract class AbstractRaiseAssert<
         succeeds()
         return Assertions.assertThat((actual as RaiseResult.Success<VALUE>).value)
     }
+
+    fun error(): AbstractObjectAssert<*, ERROR> {
+        fails()
+        return Assertions.assertThat((actual as RaiseResult.Failure<ERROR>).error)
+    }
 }
 
 sealed interface RaiseResult<out ERROR : Any, out VALUE : Any> {
