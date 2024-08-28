@@ -31,7 +31,7 @@
         <arrow-core.version>1.2.4</arrow-core.version>
         <junit-jupiter.version>5.11.0</junit-jupiter.version>
         <dokka-maven-plugin.version>1.9.0</dokka-maven-plugin.version>
-        <maven-surefire-plugin.version>3.4.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <kotlinx-coroutines-test.version>1.9.0-RC.2</kotlinx-coroutines-test.version>
     </properties>
 
