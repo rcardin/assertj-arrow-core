@@ -8,6 +8,8 @@ import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedButFailed.Companion
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWith.Companion.shouldSucceedWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldSucceedWithButFailed.Companion.shouldSucceedWithButFailed
 import org.assertj.core.api.AbstractAssert
+import org.assertj.core.api.AbstractObjectAssert
+import org.assertj.core.api.Assertions
 import org.assertj.core.internal.ComparisonStrategy
 import org.assertj.core.internal.StandardComparisonStrategy
 
@@ -125,6 +127,32 @@ abstract class AbstractRaiseAssert<
                     shouldFailButSucceedsWith((actual as RaiseResult.Success<VALUE>).value),
                 )
         }
+
+    /**
+     * Verifies that the actual function in the [Raise] context succeeds and returns an Object assertion
+     * that allows chaining (object) assertions on the returned value.
+     *
+     * @since 1.1.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the result value of the function
+     * in the [Raise] context.
+     */
+    fun result(): AbstractObjectAssert<*, VALUE> {
+        succeeds()
+        return Assertions.assertThat((actual as RaiseResult.Success<VALUE>).value)
+    }
+
+    /**
+     * Verifies that the actual function in the [Raise] context fails and returns an Object assertion
+     * that allows chaining (object) assertions on the raised error.
+     *
+     * @since 1.1.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the raised error of the function
+     * in the [Raise] context.
+     */
+    fun error(): AbstractObjectAssert<*, ERROR> {
+        fails()
+        return Assertions.assertThat((actual as RaiseResult.Failure<ERROR>).error)
+    }
 }
 
 sealed interface RaiseResult<out ERROR : Any, out VALUE : Any> {
