@@ -128,11 +128,27 @@ abstract class AbstractRaiseAssert<
                 )
         }
 
+    /**
+     * Verifies that the actual function in the [Raise] context succeeds and returns an Object assertion
+     * that allows chaining (object) assertions on the returned value.
+     *
+     * @since 1.1.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the result value of the function
+     * in the [Raise] context.
+     */
     fun result(): AbstractObjectAssert<*, VALUE> {
         succeeds()
         return Assertions.assertThat((actual as RaiseResult.Success<VALUE>).value)
     }
 
+    /**
+     * Verifies that the actual function in the [Raise] context fails and returns an Object assertion
+     * that allows chaining (object) assertions on the raised error.
+     *
+     * @since 1.1.0
+     * @return a new [AbstractObjectAssert] for assertions chaining on the raised error of the function
+     * in the [Raise] context.
+     */
     fun error(): AbstractObjectAssert<*, ERROR> {
         fails()
         return Assertions.assertThat((actual as RaiseResult.Failure<ERROR>).error)
