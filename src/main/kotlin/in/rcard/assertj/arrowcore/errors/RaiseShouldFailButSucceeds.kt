@@ -14,7 +14,7 @@ private const val SHOULD_FAIL_BUT_SUCCEEDS_WITH_MESSAGE: String =
  * @author Riccardo Cardin
  * @since 0.2.0
  */
-internal class RaiseShouldFailButSucceeds private constructor(
+class RaiseShouldFailButSucceeds private constructor(
     expectedError: Any,
     actualSucceededValue: Any,
     message: String,
@@ -26,7 +26,7 @@ internal class RaiseShouldFailButSucceeds private constructor(
         ): RaiseShouldFailButSucceeds =
             RaiseShouldFailButSucceeds(expectedError, actualSucceededValue, SHOULD_FAIL_WITH_BUT_SUCCEEDS_WITH_MESSAGE)
 
-        internal fun shouldFailButSucceedsWith(actualSucceededValue: Any): RaiseShouldFailButSucceeds =
+        fun shouldFailButSucceedsWith(actualSucceededValue: Any): RaiseShouldFailButSucceeds =
             RaiseShouldFailButSucceeds("", actualSucceededValue, SHOULD_FAIL_BUT_SUCCEEDS_WITH_MESSAGE)
     }
 }
