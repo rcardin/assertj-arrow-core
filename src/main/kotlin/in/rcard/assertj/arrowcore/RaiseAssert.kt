@@ -61,6 +61,11 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
                 .failure(Assertions.assertThat(throwable).writableAssertionInfo, shouldThrowAnException())
         }
 
+        /**
+         * Verifies that the function in the [Raise] context raises an error.
+         * @param shouldRaiseError the function to be executed in the [Raise] context.
+         * @return the [AbstractObjectAssert] to be used to verify the error.
+         */
         inline fun <ERROR : Any, VALUE : Any> assertThatRaisedBy(
             @BuilderInference shouldRaiseError: Raise<ERROR>.() -> VALUE,
         ): AbstractObjectAssert<*, out ERROR> {

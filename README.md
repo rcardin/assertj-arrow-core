@@ -68,3 +68,25 @@ Use the `in.rcard.assertj.arrowcore.EitherAssert` class as an entry point to ass
 | `containsOnLeft`          | Verifies that the actual `Either` is `Either.Left` and contains the given value.                                                                                          |
 | `containsLeftInstanceOf`  | Verifies that the actual left-sided `Either` contains a value that is an instance of the argument.                                                                        |
 | `asLeft`                  | Verifies that the actual `Either` is not `null` and contains a left-sided value and returns an `Object` assertion that allows chaining (object) assertions on the value.  |
+
+### `Raise<E>.() -> A`
+
+Use the `in.rcard.assertj.arrowcore.RaiseAssert` class as an entry point to assert `Raise<E>.() -> A` instances. There
+are many different entry points, all of them available boh for regular and `suspend` functions:
+
+| Entry Point          | Description                                                                                                                 |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `assertThat`         | Entry point to assert a `Raise<E>.() -> A` instance.                                                                        |
+| `assertThatThrownBy` | Verifies that the function in the `Raise` context throws an exception and let chaining assertion on the thrown exception    |
+| `assertThatRaisedBy` | Verifies that the function in the `Raise` context raises a logic-typed error and let chaining assertion on the raised error |
+
+The available assertions are:
+
+| Assertions     | Description                                                                                                                                                         |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `succeedsWith` | Verifies that the function in the `Raise` context succeeds with the given value.                                                                                    |
+| `succeeds`     | Verifies that the function in the `Raise` context succeeded. No check on the value returned by the function is performed.                                           |
+| `raises`       | Verifies that the function in the Raise context fails with the given error.                                                                                         |
+| `fails`        | Verifies that the function in the Raise context fails, no matter the type of the logical error.                                                                     |
+| `result`       | Verifies that the actual function in the `Raise` context succeeds and returns an `Object` assertion that allows chaining (object) assertions on the returned value. |
+| `error`        | Verifies that the actual function in the Raise context fails and returns an Object assertion that allows chaining (object) assertions on the raised error.          |
