@@ -4,9 +4,12 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.raise.Raise
 import arrow.core.raise.fold
+import `in`.rcard.assertj.arrowcore.errors.RaiseShouldFailButSucceeds.Companion.shouldFailButSucceedsWith
 import `in`.rcard.assertj.arrowcore.errors.RaiseShouldThrowAnException.Companion.shouldThrowAnException
+import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.api.AbstractThrowableAssert
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Fail
 import org.assertj.core.internal.Failures
 import kotlin.experimental.ExperimentalTypeInference
 
@@ -56,6 +59,22 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
             return throwable?.let { return Assertions.assertThat(throwable) } ?: throw Failures
                 .instance()
                 .failure(Assertions.assertThat(throwable).writableAssertionInfo, shouldThrowAnException())
+        }
+
+        inline fun <ERROR : Any, VALUE : Any> assertThatRaisedBy(
+            @BuilderInference shouldRaiseError: Raise<ERROR>.() -> VALUE,
+        ): AbstractObjectAssert<*, out ERROR> {
+            val error =
+                fold(
+                    block = shouldRaiseError,
+                    recover = { error -> error },
+                    transform = { value ->
+                        Fail.fail(
+                            shouldFailButSucceedsWith(value).create(),
+                        )
+                    },
+                )
+            return Assertions.assertThat(error)
         }
     }
 }

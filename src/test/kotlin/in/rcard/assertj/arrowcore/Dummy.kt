@@ -12,4 +12,6 @@ internal object Dummy {
     suspend fun Raise<String>.aSuspendFunctionWithContext(input: Int): Int = input
 
     suspend fun Raise<String>.aSuspendFunctionThatThrowsAnException(): Int = throw RuntimeException("AN EXCEPTION")
+
+    suspend fun Raise<String>.aSuspendFunctionThatRaisesAnError(): Int = raise("LOGICAL ERROR")
 }

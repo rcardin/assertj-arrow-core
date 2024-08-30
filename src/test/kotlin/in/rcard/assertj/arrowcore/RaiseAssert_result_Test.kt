@@ -1,5 +1,6 @@
 package `in`.rcard.assertj.arrowcore
 
+import arrow.core.raise.Raise
 import `in`.rcard.assertj.arrowcore.Dummy.aFunctionThatRaisesAnError
 import `in`.rcard.assertj.arrowcore.Dummy.aFunctionThatThrowsAnException
 import `in`.rcard.assertj.arrowcore.Dummy.aFunctionWithContext
@@ -28,5 +29,18 @@ internal class RaiseAssert_result_Test {
             .assertThatThrownBy { assertThat { aFunctionThatThrowsAnException() }.result() }
             .isInstanceOf(RuntimeException::class.java)
             .hasMessage("AN EXCEPTION")
+    }
+
+    @Test
+    fun lordOfTheRings() {
+        val hobbits: Raise<String>.() -> List<String> = { listOf("Frodo", "Samwise", "Peregrin", "Meriadoc") }
+        assertThat(hobbits).succeedsWith(listOf("Frodo", "Samwise", "Peregrin", "Meriadoc"))
+
+        assertThat(hobbits).result().satisfies({
+            Assertions.assertThat(it).hasSize(4)
+        })
+
+        val dwarves: Raise<String>.() -> List<String> = { raise("No dwarves here!") }
+        assertThat(dwarves).error().isEqualTo("No dwarves here!")
     }
 }
