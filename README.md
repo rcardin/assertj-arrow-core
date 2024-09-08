@@ -90,3 +90,18 @@ The available assertions are:
 | `fails`        | Verifies that the function in the Raise context fails, no matter the type of the logical error.                                                                     |
 | `result`       | Verifies that the actual function in the `Raise` context succeeds and returns an `Object` assertion that allows chaining (object) assertions on the returned value. |
 | `error`        | Verifies that the actual function in the Raise context fails and returns an Object assertion that allows chaining (object) assertions on the raised error.          |
+
+### `NonEmptyList<A>`
+
+Use the `in.rcard.assertj.arrowcore.NonEmptyListAssert` class as an entry point to assert `NonEmptyList<A>` instances.
+
+| Assertions                        | Description                                                                                                                                                               |
+|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `shouldContain`                   | Verifies that the actual `NonEmptyList` contains the expected element.                                                                                                    |                           
+| `shouldContainAll`                | Verifies that the actual `NonEmptyList` contains all the expected elements.                                                                                               |
+| `shouldContainNoNulls`            | Verifies that the actual `NonEmptyList` does not contain null.                                                                                                            |
+| `shouldContainOnlyNulls`          | Verifies that the actual `NonEmptyList` contains only null.                                                                                                               |
+| `shouldContainNull`               | Verifies that the actual `NonEmptyList` contains null.                                                                                                                    |
+| `shouldHaveDuplicates`            | Verifies that the actual `NonEmptyList` contains at least one duplicate.                                                                                                  |
+| `shouldBeSingleElement`           | Verifies that the actual `NonEmptyList` has a single element which is expected element.                                                                                   |
+| `shouldBeSorted`                  | Verifies that the actual `NonEmptyList` is sorted.                                                                                                                        |
