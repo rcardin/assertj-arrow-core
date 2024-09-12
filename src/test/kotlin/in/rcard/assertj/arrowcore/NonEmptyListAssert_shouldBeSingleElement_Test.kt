@@ -2,7 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.NonEmptyList
 import arrow.core.nonEmptyListOf
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListDoesNotHaveSingleElementEqual.Companion.doesNotHaveSingleElementEqual
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldBeSingleElement.Companion.shouldBeSingleElement
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ internal class NonEmptyListAssert_shouldBeSingleElement_Test {
         // WHEN/THEN
         Assertions.assertThatThrownBy { NonEmptyListAssert.assertThat(list).shouldBeSingleElement(1) }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(doesNotHaveSingleElementEqual(list, 1).create())
+            .hasMessage(shouldBeSingleElement(list, 1).create())
     }
 
     @Test
@@ -26,7 +26,7 @@ internal class NonEmptyListAssert_shouldBeSingleElement_Test {
         // WHEN/THEN
         Assertions.assertThatThrownBy { NonEmptyListAssert.assertThat(list).shouldBeSingleElement(42) }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(doesNotHaveSingleElementEqual(list, 42).create())
+            .hasMessage(shouldBeSingleElement(list, 42).create())
     }
 
     @Test

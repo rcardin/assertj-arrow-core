@@ -9,15 +9,15 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Hamza Faraji
  * @since 1.2.0
  */
-class NonEmptyListIsNotSorted private constructor(message: String, actual: NonEmptyList<Any?>) :
+class NonEmptyListShouldBeSorted private constructor(message: String, actual: NonEmptyList<Any?>) :
     BasicErrorMessageFactory(message, actual) {
     companion object {
         private const val EXPECTING_TO_BE_SORTED =
             "%nExpecting:%n  <%s>%nto be sorted, but it is not."
 
-        internal fun <ELEMENT : Any> isNotSorted(
+        internal fun <ELEMENT : Any> shouldBeSorted(
             actual: NonEmptyList<ELEMENT?>
-        ): NonEmptyListIsNotSorted = NonEmptyListIsNotSorted(
+        ): NonEmptyListShouldBeSorted = NonEmptyListShouldBeSorted(
             EXPECTING_TO_BE_SORTED,
             actual
         )

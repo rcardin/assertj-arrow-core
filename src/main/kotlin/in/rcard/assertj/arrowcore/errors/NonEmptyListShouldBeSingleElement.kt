@@ -9,16 +9,16 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Hamza Faraji
  * @since 1.2.0
  */
-class NonEmptyListDoesNotHaveSingleElementEqual private constructor(message: String, actual: NonEmptyList<Any?>, expected: Any?) :
+class NonEmptyListShouldBeSingleElement private constructor(message: String, actual: NonEmptyList<Any?>, expected: Any?) :
     BasicErrorMessageFactory(message, actual, expected) {
     companion object {
         private const val EXPECTING_TO_HAVE_SINGLE_ELEMENT_EQUAL =
             "%nExpecting:%n  <%s>%nto have single element:%n  <%s>%nbut did not."
 
-        internal fun <ELEMENT : Any> doesNotHaveSingleElementEqual(
+        internal fun <ELEMENT : Any> shouldBeSingleElement(
             actual: NonEmptyList<ELEMENT?>,
             expected: ELEMENT?
-        ): NonEmptyListDoesNotHaveSingleElementEqual = NonEmptyListDoesNotHaveSingleElementEqual(
+        ): NonEmptyListShouldBeSingleElement = NonEmptyListShouldBeSingleElement(
             EXPECTING_TO_HAVE_SINGLE_ELEMENT_EQUAL,
             actual,
             expected

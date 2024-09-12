@@ -2,7 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.NonEmptyList
 import arrow.core.nonEmptyListOf
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListHasNoDuplicates.Companion.hasNoDuplicate
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldHaveDuplicates.Companion.shouldHaveDuplicates
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ internal class NonEmptyListAssert_shouldHaveDuplicates_Test {
         // WHEN/THEN
         Assertions.assertThatThrownBy { NonEmptyListAssert.assertThat(list).shouldHaveDuplicates() }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(hasNoDuplicate(list).create())
+            .hasMessage(shouldHaveDuplicates(list).create())
     }
 
     @Test

@@ -9,16 +9,16 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Hamza Faraji
  * @since 1.2.0
  */
-class NonEmptyListContains(message: String, actual: NonEmptyList<Any?>, expected: Any?) :
+class NonEmptyListShouldNotContain(message: String, actual: NonEmptyList<Any?>, expected: Any?) :
     BasicErrorMessageFactory(message, actual, expected)  {
     companion object {
         private const val EXPECTING_NOT_TO_CONTAIN =
-            "%nExpecting:%n  <%s>%nto not contain any:%n  <%s>%nbut it did."
+            "%nExpecting:%n  <%s>%nnot to contain any:%n  <%s>%nbut it did."
 
-        internal fun <ELEMENT : Any?> contains(
+        internal fun <ELEMENT : Any?> shouldNotContain(
             actual: NonEmptyList<ELEMENT>,
             expected: ELEMENT
-        ): NonEmptyListContains = NonEmptyListContains(
+        ): NonEmptyListShouldNotContain = NonEmptyListShouldNotContain(
             EXPECTING_NOT_TO_CONTAIN,
             actual,
             expected

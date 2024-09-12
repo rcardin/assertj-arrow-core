@@ -2,7 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.NonEmptyList
 import arrow.core.nonEmptyListOf
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListIsNotSorted.Companion.isNotSorted
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldBeSorted.Companion.shouldBeSorted
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ internal class NonEmptyListAssert_shouldBeSorted_Test {
         // WHEN/THEN
         Assertions.assertThatThrownBy { NonEmptyListAssert.assertThat(list).shouldBeSorted() }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(isNotSorted(list).create())
+            .hasMessage(shouldBeSorted(list).create())
     }
 
     @Test

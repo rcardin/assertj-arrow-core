@@ -1,35 +1,41 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.NonEmptyList
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListHasNoDuplicates.Companion.hasNoDuplicate
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListIsNotSorted.Companion.isNotSorted
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldNotContain.Companion.shouldNotContain
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldContain.Companion.shouldContain
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldContainOnly.Companion.shouldContainOnly
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldBeSingleElement.Companion.shouldBeSingleElement
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldHaveDuplicates.Companion.shouldHaveDuplicates
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldBeSorted.Companion.shouldBeSorted
 import org.assertj.core.api.AbstractAssert
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListContains.Companion.contains
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListDoesNotContain.Companion.doesNotContain
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListDoesNotContainOnly.Companion.doesNotContainOnly
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListDoesNotHaveSingleElementEqual.Companion.doesNotHaveSingleElementEqual
-import org.assertj.core.api.AbstractIterableAssert
-import org.assertj.core.internal.ComparisonStrategy
+import org.assertj.core.api.AssertFactory
+import org.assertj.core.api.FactoryBasedNavigableListAssert
 import org.assertj.core.internal.StandardComparisonStrategy
+
 
 /**
  * Assertions for [NonEmptyList].
  *
  * @param SELF the "self" type of this assertion class.
  * @param ELEMENT type of the element contained in the [NonEmptyList].
- * @param ELEMENT_ASSERT type used for navigational assertion of element contained in the [NonEmptyList].
+ * @param ELEMENT_ASSERT type used for assertion of element contained in the [NonEmptyList].
  * @author Hamza Faraji
  *
  * @since 1.2.0
  */
-abstract class AbstractNonEmptyListAssert<
+open class AbstractNonEmptyListAssert<
         SELF : AbstractNonEmptyListAssert<SELF, ELEMENT, ELEMENT_ASSERT>,
         ELEMENT : Any?,
         ELEMENT_ASSERT : AbstractAssert<ELEMENT_ASSERT, ELEMENT>
         > internal constructor(
     list: NonEmptyList<ELEMENT?>?,
-) : AbstractIterableAssert<SELF, NonEmptyList<ELEMENT?>, ELEMENT, ELEMENT_ASSERT>(list, AbstractNonEmptyListAssert::class.java) {
-    private val comparisonStrategy: ComparisonStrategy = StandardComparisonStrategy.instance()
+    assertFactory: AssertFactory<ELEMENT, ELEMENT_ASSERT>?,
+) : FactoryBasedNavigableListAssert<SELF, NonEmptyList<ELEMENT?>, ELEMENT, ELEMENT_ASSERT>(
+    list,
+    AbstractNonEmptyListAssert::class.java,
+    assertFactory
+) {
+    private val comparisonStrategy: StandardComparisonStrategy = StandardComparisonStrategy.instance()
 
     /**
      * Verifies that the actual [NonEmptyList] contains the expected element
@@ -50,7 +56,7 @@ abstract class AbstractNonEmptyListAssert<
     fun shouldContainAll(vararg elements: ELEMENT): SELF {
         isNotNull
         if (!actual.containsAll(elements.toList())) {
-            throwAssertionError(doesNotContain(actual, elements))
+            throwAssertionError(shouldContain(actual, elements))
         }
         return myself
     }
@@ -74,7 +80,7 @@ abstract class AbstractNonEmptyListAssert<
     fun shouldContainNoNulls(): SELF {
         isNotNull
         if (actual.contains(null)) {
-            throwAssertionError(contains(actual, null))
+            throwAssertionError(shouldNotContain(actual, null))
         }
         return myself
     }
@@ -86,8 +92,8 @@ abstract class AbstractNonEmptyListAssert<
      */
     fun shouldContainOnlyNulls(): SELF {
         isNotNull
-        if (!actual.all { it == null }) {
-            throwAssertionError(doesNotContainOnly(actual, null))
+        if (!actual.none { it != null }) {
+            throwAssertionError(shouldContainOnly(actual, null))
         }
         return myself
     }
@@ -99,8 +105,8 @@ abstract class AbstractNonEmptyListAssert<
      */
     fun shouldHaveDuplicates(): SELF {
         isNotNull
-        if (!actual.groupBy { it }.any { it.value.size > 1 }) {
-            throwAssertionError(hasNoDuplicate(actual))
+        if (actual.distinct().size == actual.size) {
+            throwAssertionError(shouldHaveDuplicates(actual))
         }
         return myself
     }
@@ -113,7 +119,7 @@ abstract class AbstractNonEmptyListAssert<
     fun shouldBeSingleElement(expectedValue: ELEMENT): SELF {
         isNotNull
         if (actual.size != 1 || !comparisonStrategy.areEqual(actual.first(), expectedValue)) {
-            throwAssertionError(doesNotHaveSingleElementEqual(actual, expectedValue))
+            throwAssertionError(shouldBeSingleElement(actual, expectedValue))
         }
         return myself
     }
@@ -125,8 +131,14 @@ abstract class AbstractNonEmptyListAssert<
      */
     fun shouldBeSorted(): SELF {
         isNotNull
-        if (!actual.zipWithNext().all { comparisonStrategy.isLessThanOrEqualTo(it.first, it.second) }) {
-            throwAssertionError(isNotSorted(actual))
+        if (actual.sortedWith { first, second ->
+            when {
+                comparisonStrategy.areEqual(first, second) -> 0
+                comparisonStrategy.isLessThanOrEqualTo(first, second) -> -1
+                else -> 1
+            }
+        } != actual) {
+            throwAssertionError(shouldBeSorted(actual))
         }
 
         return myself
@@ -135,8 +147,7 @@ abstract class AbstractNonEmptyListAssert<
     private fun assertContains(expectedValue: ELEMENT?) {
         isNotNull
         if (!actual.contains(expectedValue)) {
-            throwAssertionError(doesNotContain(actual, expectedValue))
+            throwAssertionError(shouldContain(actual, expectedValue))
         }
     }
-
 }

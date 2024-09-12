@@ -9,15 +9,15 @@ import org.assertj.core.error.BasicErrorMessageFactory
  * @author Hamza Faraji
  * @since 1.2.0
  */
-class NonEmptyListHasNoDuplicates private constructor(message: String, actual: NonEmptyList<Any?>) :
+class NonEmptyListShouldHaveDuplicates private constructor(message: String, actual: NonEmptyList<Any?>) :
     BasicErrorMessageFactory(message, actual) {
     companion object {
         private const val EXPECTING_TO_CONTAIN_DUPLICATES =
             "%nExpecting:%n  <%s>%nto contain duplicates but did not."
 
-        internal fun <ELEMENT : Any> hasNoDuplicate(
+        internal fun <ELEMENT : Any> shouldHaveDuplicates(
             actual: NonEmptyList<ELEMENT?>
-        ): NonEmptyListHasNoDuplicates = NonEmptyListHasNoDuplicates(
+        ): NonEmptyListShouldHaveDuplicates = NonEmptyListShouldHaveDuplicates(
             EXPECTING_TO_CONTAIN_DUPLICATES,
             actual
         )

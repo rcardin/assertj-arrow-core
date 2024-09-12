@@ -2,7 +2,7 @@ package `in`.rcard.assertj.arrowcore
 
 import arrow.core.NonEmptyList
 import arrow.core.nonEmptyListOf
-import `in`.rcard.assertj.arrowcore.errors.NonEmptyListContains.Companion.contains
+import `in`.rcard.assertj.arrowcore.errors.NonEmptyListShouldNotContain.Companion.shouldNotContain
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ internal class NonEmptyListAssert_shouldContainNoNulls_Test {
         // WHEN/THEN
         Assertions.assertThatThrownBy { NonEmptyListAssert.assertThat(list).shouldContainNoNulls() }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(contains(list, null).create())
+            .hasMessage(shouldNotContain(list, null).create())
     }
 
     @Test
