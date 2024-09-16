@@ -13,6 +13,7 @@ the [Arrow](https://arrow-kt.io/) library. In detail, the project provides asser
 - [x] `Either<E, A>`
 - [x] `Option<A>`
 - [x] `Raise<E>.() -> A`
+- [x] `NonEmptyList<A>`
 
 Maybe you're asking yourself: "Why do we need AssertJ assertions for Arrow types?". The answer is simple: We often use
 Kotlin and Arrow Kt inside a Java project using Spring Boot. In this case, we already have AssertJ in the classpath as
@@ -27,7 +28,7 @@ The library is available on Maven Central. To use it, add the following dependen
 <dependency>
     <groupId>in.rcard</groupId>
     <artifactId>assertj-arrow-core</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -35,7 +36,7 @@ The library is available on Maven Central. To use it, add the following dependen
 Otherwise, if you're using Gradle, add the following dependency to your `build.gradle.kts` file:
 
 ```kotlin
-testImplementation("in.rcard:assertj-arrow-core:1.1.0")
+testImplementation("in.rcard:assertj-arrow-core:1.2.0")
 ```
 
 ## Assertions Guide
