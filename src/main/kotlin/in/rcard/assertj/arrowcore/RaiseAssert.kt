@@ -41,6 +41,16 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
 
         /**
          * Verifies that the function in the [Raise] context throws an exception.
+         * ### Example:
+         * ```kotlin
+         * val throwsException: Raise<String>.() -> Int = {
+         *     throw RuntimeException("AN EXCEPTION")
+         * }
+         * assertThatThrownBy { throwsException() }
+         *     .isInstanceOf(RuntimeException::class.java)
+         *     .hasMessage("AN EXCEPTION")
+         * ```
+         *
          * @param shouldRaiseThrowable the function to be executed in the [Raise] context.
          * @return the [AbstractThrowableAssert] to be used to verify the exception.
          */
@@ -63,6 +73,11 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
 
         /**
          * Verifies that the function in the [Raise] context raises an error.
+         * ### Example:
+         * ```kotlin
+         * val raisesError: Raise<String>.() -> Int = { raise("LOGICAL ERROR") }
+         * assertThatRaisedBy { raisesError() }.isEqualTo("LOGICAL ERROR")
+         * ```
          * @param shouldRaiseError the function to be executed in the [Raise] context.
          * @return the [AbstractObjectAssert] to be used to verify the error.
          */
