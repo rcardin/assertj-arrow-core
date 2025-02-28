@@ -22,11 +22,11 @@ import kotlin.experimental.ExperimentalTypeInference
  *
  * @since 0.2.0
  */
-class RaiseAssert<ERROR : Any, VALUE : Any>(
+class RaiseAssert<ERROR : Any?, VALUE : Any?>(
     raiseResult: RaiseResult<ERROR, VALUE>,
 ) : AbstractRaiseAssert<RaiseAssert<ERROR, VALUE>, ERROR, VALUE>(raiseResult) {
     companion object {
-        inline fun <ERROR : Any, VALUE : Any> assertThat(
+        inline fun <ERROR : Any?, VALUE : Any?> assertThat(
             @BuilderInference lambda: Raise<ERROR>.() -> VALUE,
         ): RaiseAssert<ERROR, VALUE> {
             val raiseResult =
@@ -54,7 +54,7 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
          * @param shouldRaiseThrowable the function to be executed in the [Raise] context.
          * @return the [AbstractThrowableAssert] to be used to verify the exception.
          */
-        inline fun <ERROR : Any, VALUE : Any> assertThatThrownBy(
+        inline fun <ERROR : Any?, VALUE : Any?> assertThatThrownBy(
             @BuilderInference shouldRaiseThrowable: Raise<ERROR>.() -> VALUE,
         ): AbstractThrowableAssert<*, out Throwable> {
             val throwable: Throwable? =
@@ -81,7 +81,7 @@ class RaiseAssert<ERROR : Any, VALUE : Any>(
          * @param shouldRaiseError the function to be executed in the [Raise] context.
          * @return the [AbstractObjectAssert] to be used to verify the error.
          */
-        inline fun <ERROR : Any, VALUE : Any> assertThatRaisedBy(
+        inline fun <ERROR : Any?, VALUE : Any?> assertThatRaisedBy(
             @BuilderInference shouldRaiseError: Raise<ERROR>.() -> VALUE,
         ): AbstractObjectAssert<*, out ERROR> {
             val error =
