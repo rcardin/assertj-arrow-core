@@ -5,7 +5,6 @@ import arrow.core.left
 import arrow.core.right
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft.Companion.shouldBeLeft
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnLeft
-import `in`.rcard.assertj.arrowcore.errors.EitherShouldContain.Companion.shouldContainOnRight
 import org.assertj.core.api.Assertions
 import org.assertj.core.util.FailureMessages.actualIsNull
 import org.junit.jupiter.api.Test
