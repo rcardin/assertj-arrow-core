@@ -1,6 +1,7 @@
 package `in`.rcard.assertj.arrowcore
 
 import arrow.core.Either
+import arrow.core.right
 import `in`.rcard.assertj.arrowcore.errors.EitherShouldBeLeft
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
@@ -27,11 +28,19 @@ internal class EitherAssert_hasLeftValueSatisfying_Test {
     }
 
     @Test
+    internal fun `should fail if either is right and null`() {
+        val actual: Either<Int, String?> = null.right()
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasLeftValueSatisfying { } }
+            .isInstanceOf(AssertionError::class.java)
+            .hasMessage(EitherShouldBeLeft.shouldBeLeft(actual).create())
+    }
+
+    @Test
     internal fun `should fail if consumer fails`() {
         val actual: Either<Int, String> = Either.Left(42)
         Assertions.assertThatThrownBy { EitherAssert.assertThat(actual).hasLeftValueSatisfying { assertThat(it).isEqualTo(24) } }
             .isInstanceOf(AssertionError::class.java)
-            .hasMessage(("\nexpected: 24\n but was: 42"))
+            .hasMessage(("${System.lineSeparator()}expected: 24${System.lineSeparator()} but was: 42"))
     }
 
     @Test
