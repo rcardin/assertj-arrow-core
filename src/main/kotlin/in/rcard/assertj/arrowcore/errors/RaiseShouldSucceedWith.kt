@@ -11,11 +11,14 @@ private const val SHOULD_SUCCEED_WITH_MESSAGE: String =
  * @author Riccardo Cardin
  * @since 0.2.0
  */
-internal class RaiseShouldSucceedWith private constructor(expected: Any, actual: Any) :
-    BasicErrorMessageFactory(SHOULD_SUCCEED_WITH_MESSAGE, expected, actual) {
-
+internal class RaiseShouldSucceedWith private constructor(
+    expected: Any?,
+    actual: Any?,
+) : BasicErrorMessageFactory(SHOULD_SUCCEED_WITH_MESSAGE, expected, actual) {
     companion object {
-        internal fun shouldSucceedWith(expected: Any, actual: Any): RaiseShouldSucceedWith =
-            RaiseShouldSucceedWith(expected, actual)
+        internal fun shouldSucceedWith(
+            expected: Any?,
+            actual: Any?,
+        ): RaiseShouldSucceedWith = RaiseShouldSucceedWith(expected, actual)
     }
 }

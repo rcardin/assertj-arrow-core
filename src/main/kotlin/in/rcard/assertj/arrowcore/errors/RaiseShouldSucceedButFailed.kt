@@ -12,10 +12,10 @@ private const val SHOULD_SUCCEED_BUT_FAILED_MESSAGE: String =
  * @since 1.0.0
  */
 internal class RaiseShouldSucceedButFailed private constructor(
-    actualRaisedError: Any,
+    actualRaisedError: Any?,
 ) : BasicErrorMessageFactory(SHOULD_SUCCEED_BUT_FAILED_MESSAGE, actualRaisedError) {
     companion object {
-        internal fun shouldSucceedButFailed(actualRaisedError: Any): RaiseShouldSucceedButFailed =
+        internal fun shouldSucceedButFailed(actualRaisedError: Any?): RaiseShouldSucceedButFailed =
             RaiseShouldSucceedButFailed(actualRaisedError)
     }
 }
