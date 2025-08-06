@@ -23,8 +23,8 @@ import org.assertj.core.internal.StandardComparisonStrategy
  */
 abstract class AbstractRaiseAssert<
     SELF : AbstractRaiseAssert<SELF, ERROR, VALUE>,
-    ERROR : Any,
-    VALUE : Any,
+    ERROR : Any?,
+    VALUE : Any?,
 > internal constructor(
     raiseResult: RaiseResult<ERROR, VALUE>,
 ) : AbstractAssert<
@@ -155,12 +155,12 @@ abstract class AbstractRaiseAssert<
     }
 }
 
-sealed interface RaiseResult<out ERROR : Any, out VALUE : Any> {
-    data class Success<out VALUE : Any>(
+sealed interface RaiseResult<out ERROR : Any?, out VALUE : Any?> {
+    data class Success<out VALUE : Any?>(
         val value: VALUE,
     ) : RaiseResult<Nothing, VALUE>
 
-    data class Failure<out ERROR : Any>(
+    data class Failure<out ERROR : Any?>(
         val error: ERROR,
     ) : RaiseResult<ERROR, Nothing>
 
