@@ -49,6 +49,34 @@ internal class EitherAssert_containsOnRightInstanceOf_Test {
     }
 
     @Test
+    internal fun `should fail if either contains a left-sided null`() {
+        val actual: Either<String?, Any> = null.left()
+        Assertions.assertThatThrownBy {
+            assertThat(actual).containsRightInstanceOf(
+                Any::class.java,
+            )
+        }
+            .isInstanceOf(AssertionError::class.java)
+            .hasMessage(shouldBeRight(actual).create())
+    }
+
+    @Test
+    internal fun `should fail if either contains null value for type on right`() {
+        val actual: Either<Nothing, String?> = null.right()
+        Assertions.assertThatThrownBy {
+            assertThat(actual)
+                .containsRightInstanceOf(String::class.java)
+        }
+            .isInstanceOf(AssertionError::class.java)
+            .hasMessage(
+                shouldContainOnRightInstanceOf(
+                    actual,
+                    String::class.java
+                ).create()
+            )
+    }
+
+    @Test
     internal fun `should pass if either contains required type subclass on right`() {
         val actual = Child().right()
         assertThat(actual).containsRightInstanceOf(Parent::class.java)

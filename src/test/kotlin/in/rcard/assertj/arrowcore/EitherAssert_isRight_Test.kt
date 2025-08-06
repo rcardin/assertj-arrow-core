@@ -29,9 +29,27 @@ internal class EitherAssert_isRight_Test {
     }
 
     @Test
+    internal fun `should pass if either is right-sided null`() {
+        // GIVEN
+        val rightValue = null.right()
+        // WHEN/THEN
+        EitherAssert.assertThat(rightValue).isRight()
+    }
+
+    @Test
     internal fun `should fail if either is left`() {
         // GIVEN
         val leftValue = "42".left()
+        // WHEN/THEN
+        Assertions.assertThatThrownBy { EitherAssert.assertThat(leftValue).isRight() }
+            .isInstanceOf(AssertionError::class.java)
+            .hasMessage(shouldBeRight(leftValue).create())
+    }
+
+    @Test
+    internal fun `should fail if either is left-sided null`() {
+        // GIVEN
+        val leftValue = null.left()
         // WHEN/THEN
         Assertions.assertThatThrownBy { EitherAssert.assertThat(leftValue).isRight() }
             .isInstanceOf(AssertionError::class.java)

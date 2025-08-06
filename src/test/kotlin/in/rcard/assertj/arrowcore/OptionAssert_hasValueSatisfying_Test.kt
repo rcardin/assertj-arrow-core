@@ -51,6 +51,6 @@ internal class OptionAssert_hasValueSatisfying_Test {
                 .hasValueSatisfying { assertThat(it).isEqualTo("something else") }
         }
         .isInstanceOf(AssertionError::class.java)
-        .hasMessage("\nexpected: \"something else\"\n but was: \"something\"")
+        .hasMessage("${System.lineSeparator()}expected: \"something else\"${System.lineSeparator()} but was: \"something\"")
     }
 }

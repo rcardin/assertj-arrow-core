@@ -30,7 +30,7 @@ internal class EitherShouldContainInstanceOf private constructor(message: String
          * @throws java.lang.NullPointerException if either is null.
          */
         internal fun shouldContainOnRightInstanceOf(
-            actual: Either<Any, Any>,
+            actual: Either<Any?, Any?>,
             expectedClass: Class<*>,
         ): EitherShouldContainInstanceOf =
             actual.fold(
@@ -47,14 +47,14 @@ internal class EitherShouldContainInstanceOf private constructor(message: String
                         EXPECTING_TO_CONTAIN_DIFFERENT_INSTANCE.format(
                             actual.javaClass.simpleName,
                             expectedClass.name,
-                            rightValue.javaClass.name,
+                            rightValue?.javaClass?.name ?: "null",
                         ),
                     )
                 },
             )
 
         internal fun shouldContainOnLeftInstanceOf(
-            actual: Either<Any, Any>,
+            actual: Either<Any?, Any?>,
             expectedClass: Class<*>,
         ): EitherShouldContainInstanceOf =
             actual.fold(
@@ -63,7 +63,7 @@ internal class EitherShouldContainInstanceOf private constructor(message: String
                         EXPECTING_TO_CONTAIN_DIFFERENT_INSTANCE.format(
                             actual.javaClass.simpleName,
                             expectedClass.name,
-                            leftValue.javaClass.name,
+                            leftValue?.javaClass?.name ?: "null",
                         ),
                     )
                 },
