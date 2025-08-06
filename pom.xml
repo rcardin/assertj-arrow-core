@@ -202,7 +202,8 @@
                     <plugin>
                         <groupId>org.jreleaser</groupId>
                         <artifactId>jreleaser-maven-plugin</artifactId>
-                        <version>1.5.1</version>
+                        <version>1.19.0</version>
+                        <inherited>false</inherited>
                         <configuration>
                             <jreleaser>
                                 <signing>
