@@ -55,6 +55,11 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.JRELEASER_NEXUS2_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_NEXUS2_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_NEXUS2_USERNAME: ${{ secrets.JRELEASER_NEXUS2_USERNAME }}
+          JRELEASER_NEXUS2_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_PASSWORD }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
         run: |
           export GPG_TTY=$(tty)
           git config user.name "${{ github.event.head_commit.committer.name }}"
@@ -67,6 +72,11 @@ jobs:
         uses: jreleaser/release-action@v2
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_NEXUS2_USERNAME: ${{ secrets.JRELEASER_NEXUS2_USERNAME }}
+          JRELEASER_NEXUS2_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_PASSWORD }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
 
       # Persist logs
 
