@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="in.rcard.assertj.arrowcore.NonEmptyListAssert_shouldBeSingleElement_Test" time="0.01" tests="4" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/test-classes:/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/classes:/home/runner/.m2/repository/org/assertj/assertj-core/3.27.5/assertj-core-3.27.5.jar:/home/runner/.m2/repository/net/bytebuddy/byte-buddy/1.17.7/byte-buddy-1.17.7.jar:/home/runner/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/2.2.20/kotlin-stdlib-2.2.20.jar:/home/runner/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-core-jvm/2.1.2/arrow-core-jvm-2.1.2.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-atomic-jvm/2.1.2/arrow-atomic-jvm-2.1.2.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-annotations-jvm/2.1.2/arrow-annotations-jvm-2.1.2.jar:/home/runner/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.13.4/junit-jupiter-api-5.13.4.jar:/home/runner/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/runner/.m2/repository/org/junit/platform/junit-platform-commons/1.13.4/junit-platform-commons-1.13.4.jar:/home/runner/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/runner/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.13.4/junit-jupiter-engine-5.13.4.jar:/home/runner/.m2/repository/org/junit/platform/junit-platform-engine/1.13.4/junit-platform-engine-1.13.4.jar:/home/runner/.m2/repository/org/jetbrains/kotlin/kotlin-test/2.2.20/kotlin-test-2.2.20.jar:/home/runner/.m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-test-jvm/1.9.0/kotlinx-coroutines-test-jvm-1.9.0.jar:/home/runner/.m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.9.0/kotlinx-coroutines-core-jvm-1.9.0.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/temurin-17-jdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/surefire/surefirebooter-20250922063201459_3.jar /home/runner/work/assertj-arrow-core/assertj-arrow-core/target/surefire 2025-09-22T06-32-00_556-jvmRun1 surefire-20250922063201459_1tmp surefire_0-20250922063201459_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/test-classes:/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/classes:/home/runner/.m2/repository/org/assertj/assertj-core/3.27.5/assertj-core-3.27.5.jar:/home/runner/.m2/repository/net/bytebuddy/byte-buddy/1.17.7/byte-buddy-1.17.7.jar:/home/runner/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/2.2.20/kotlin-stdlib-2.2.20.jar:/home/runner/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-core-jvm/2.1.2/arrow-core-jvm-2.1.2.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-atomic-jvm/2.1.2/arrow-atomic-jvm-2.1.2.jar:/home/runner/.m2/repository/io/arrow-kt/arrow-annotations-jvm/2.1.2/arrow-annotations-jvm-2.1.2.jar:/home/runner/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.13.4/junit-jupiter-api-5.13.4.jar:/home/runner/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/runner/.m2/repository/org/junit/platform/junit-platform-commons/1.13.4/junit-platform-commons-1.13.4.jar:/home/runner/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/runner/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.13.4/junit-jupiter-engine-5.13.4.jar:/home/runner/.m2/repository/org/junit/platform/junit-platform-engine/1.13.4/junit-platform-engine-1.13.4.jar:/home/runner/.m2/repository/org/jetbrains/kotlin/kotlin-test/2.2.20/kotlin-test-2.2.20.jar:/home/runner/.m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-test-jvm/1.9.0/kotlinx-coroutines-test-jvm-1.9.0.jar:/home/runner/.m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.9.0/kotlinx-coroutines-core-jvm-1.9.0.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/runner"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="/usr/lib/jvm/temurin-17-jdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core/target/surefire/surefirebooter-20250922063201459_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.16+8"/>
+    <property name="user.name" value="runner"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.11.0-1018-azure"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.16+8"/>
+    <property name="localRepository" value="/home/runner/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="17.0.16"/>
+    <property name="user.dir" value="/home/runner/work/assertj-arrow-core/assertj-arrow-core"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.16+8"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="should fail if list is null$assertj_arrow_core" classname="in.rcard.assertj.arrowcore.NonEmptyListAssert_shouldBeSingleElement_Test" time="0.001"/>
+  <testcase name="should fail if non empty list has one element but it&apos;s not equal to expected value$assertj_arrow_core" classname="in.rcard.assertj.arrowcore.NonEmptyListAssert_shouldBeSingleElement_Test" time="0.002"/>
+  <testcase name="should fail if non empty list has more than one element$assertj_arrow_core" classname="in.rcard.assertj.arrowcore.NonEmptyListAssert_shouldBeSingleElement_Test" time="0.002"/>
+  <testcase name="should pass if empty list contains element$assertj_arrow_core" classname="in.rcard.assertj.arrowcore.NonEmptyListAssert_shouldBeSingleElement_Test" time="0.002"/>
+</testsuite>
