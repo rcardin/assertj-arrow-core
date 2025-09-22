@@ -28,7 +28,7 @@ The library is available on Maven Central. To use it, add the following dependen
 <dependency>
     <groupId>in.rcard</groupId>
     <artifactId>assertj-arrow-core</artifactId>
-    <version>1.2.2</version>
+    <version>2.0.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -36,7 +36,7 @@ The library is available on Maven Central. To use it, add the following dependen
 Otherwise, if you're using Gradle, add the following dependency to your `build.gradle.kts` file:
 
 ```kotlin
-testImplementation("in.rcard:assertj-arrow-core:1.2.2")
+testImplementation("in.rcard:assertj-arrow-core:2.0.0")
 ```
 
 ## Assertions Guide
