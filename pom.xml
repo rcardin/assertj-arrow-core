@@ -30,7 +30,7 @@
         <kotlin-stdlib.version>2.2.20</kotlin-stdlib.version>
         <arrow-core.version>2.1.2</arrow-core.version>
         <junit-jupiter.version>5.13.4</junit-jupiter.version>
-        <dokka-maven-plugin.version>1.9.0</dokka-maven-plugin.version>
+        <dokka-maven-plugin.version>2.0.0</dokka-maven-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <kotlinx-coroutines-test.version>1.9.0</kotlinx-coroutines-test.version>
     </properties>
