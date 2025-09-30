@@ -32,7 +32,7 @@
         <junit-jupiter.version>5.13.4</junit-jupiter.version>
         <dokka-maven-plugin.version>1.9.0</dokka-maven-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <kotlinx-coroutines-test.version>1.9.0</kotlinx-coroutines-test.version>
+        <kotlinx-coroutines-test.version>1.10.2</kotlinx-coroutines-test.version>
     </properties>
 
     <url>https://github.com/rcardin/assertj-arrow-core</url>
